@@ -1,0 +1,10 @@
+﻿time_period,country_name,gender,school_phase,number_children,percent_children
+2018,England,Male,Primary,240,26.7
+2018,England,Female,Primary,200,22.2
+2018,England,Total,Primary,440,48.9
+2018,England,Male,Secondary,240,26.7
+2018,England,Female,Secondary,220,24.4
+2018,England,Total,Secondary,460,51.1
+2018,England,Male,Total,480,53.3
+2018,England,Female,Total,420,46.7
+2018,England,Total,Total,900,100
