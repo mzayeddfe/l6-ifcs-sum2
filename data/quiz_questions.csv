@@ -1,0 +1,43 @@
+﻿question,possible_answers,answer_indicator,aspect
+What does the Code of Practice say about professional independence?, Statistics should be approved by senior management before publication,i,trustworthiness
+What does the Code of Practice say about professional independence?,Statistics should be produced free from political interference,c,trustworthiness
+What does the Code of Practice say about professional independence?,Statistics should only be shared internally,i,trustworthiness
+What does the Code of Practice say about professional independence?,Statistics should be published only when requested,i,trustworthiness
+True or False: Producers of official statistics should be transparent about errors and limitations.,TRUE,c,trustworthiness
+True or False: Producers of official statistics should be transparent about errors and limitations.,FALSE,i,trustworthiness
+A statistician identifies an error in published data that may affect public interpretation. What is the most appropriate action under the Code of Practice?,Ignore the issue unless formally complained about,i,trustworthiness
+A statistician identifies an error in published data that may affect public interpretation. What is the most appropriate action under the Code of Practice?,Quietly correct the data in future publications,i,trustworthiness
+A statistician identifies an error in published data that may affect public interpretation. What is the most appropriate action under the Code of Practice?,Be open about the error and issue a correction,c,trustworthiness
+A statistician identifies an error in published data that may affect public interpretation. What is the most appropriate action under the Code of Practice?,Remove the dataset entirely,i,trustworthiness
+Which role is responsible for ensuring compliance with the Code of Practice?, External auditors,i,trustworthiness
+Which role is responsible for ensuring compliance with the Code of Practice?,Individual producers of statistics,c,trustworthiness
+Which role is responsible for ensuring compliance with the Code of Practice?,The media,i,trustworthiness
+Which role is responsible for ensuring compliance with the Code of Practice?, Data users,i,trustworthiness
+Which of the following best describes “quality” under the Code of Practice?,Data that is visually appealing,i,qualitty
+Which of the following best describes “quality” under the Code of Practice?,"Data that is timely, accurate, and fit for purpose",c,qualitty
+Which of the following best describes “quality” under the Code of Practice?,Data that contains as many variables as possible,i,qualitty
+Which of the following best describes “quality” under the Code of Practice?,Data that is expensive to collect,i,qualitty
+True or False: Statistics should be based on sound methods and assured data sources.,TRUE,c,qualitty
+True or False: Statistics should be based on sound methods and assured data sources.,FALSE,i,qualitty
+Why does the Code emphasise documenting methods and data sources?,To reduce development time,i,qualitty
+Why does the Code emphasise documenting methods and data sources?,To support transparency and reproducibility,c,qualitty
+Why does the Code emphasise documenting methods and data sources?,To prevent users accessing raw data,i,qualitty
+Why does the Code emphasise documenting methods and data sources?,To meet legal requirements only,i,qualitty
+"A dataset has known limitations due to missing values. According to the Code of Practice, what should be done?",Remove the dataset from publication,i,qualitty
+"A dataset has known limitations due to missing values. According to the Code of Practice, what should be done?",Publish without explanation,i,qualitty
+"A dataset has known limitations due to missing values. According to the Code of Practice, what should be done?",Clearly communicate limitations to users,c,qualitty
+"A dataset has known limitations due to missing values. According to the Code of Practice, what should be done?",Replace missing values without documentation,i,qualitty
+What does “value” primarily refer to in the Code of Practice?,Financial cost of producing statistics,i,value
+What does “value” primarily refer to in the Code of Practice?,The usefulness of statistics to users,c,value
+What does “value” primarily refer to in the Code of Practice?,The volume of data collected,i,value
+What does “value” primarily refer to in the Code of Practice?,The frequency of publication,i,value
+True or False: Statistics should be designed with user needs in mind.,TRUE,c,value
+True or False: Statistics should be designed with user needs in mind.,FALSE,i,value
+Which practice best supports public value?,Publishing complex datasets without explanation,i,value
+Which practice best supports public value?,Engaging with users to understand their needs,c,value
+Which practice best supports public value?,Limiting access to data,i,value
+Which practice best supports public value?,Avoiding visualisations,i,value
+Feedback indicates users find a statistical release difficult to understand. What action aligns best with the Code of Practice?,Ignore feedback,i,value
+Feedback indicates users find a statistical release difficult to understand. What action aligns best with the Code of Practice?,Stop publishing the release,i,value
+Feedback indicates users find a statistical release difficult to understand. What action aligns best with the Code of Practice?,Improve explanations and accessibility,c,value
+Feedback indicates users find a statistical release difficult to understand. What action aligns best with the Code of Practice?,Restrict access to expert users,i,value
