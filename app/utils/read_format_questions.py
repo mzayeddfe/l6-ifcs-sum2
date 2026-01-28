@@ -1,24 +1,24 @@
-import pandas as pd
-import os
 
-# Get the absolute path to the CSV file, regardless of where the script is run from
-script_dir = os.path.dirname(os.path.abspath(__file__))
-questions_file_path = os.path.join(script_dir,'..',  '..', 'data', 'quiz_questions.csv')
 
-questions_bank = pd.read_csv(questions_file_path)
+def read_format_quiz_qs(data_file):
+    import pandas as pd
+    import os
 
-# Source - https://stackoverflow.com/a
-# Posted by sudonym, modified by community. See post 'Timeline' for change history
-# Retrieved 2026-01-28, License - CC BY-SA 4.0
+    # Get the absolute path to the CSV file, regardless of where the script is run from
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    questions_file_path = os.path.join(script_dir,'..',  '..', 'data', data_file)
+    questions_file_path = os.path.abspath(questions_file_path)
+    #print(questions_file_path)
 
-questions_bank[['question', 'possible_answers', 'answer_indicator','aspect']] = questions_bank[['question', 'possible_answers', 'answer_indicator','aspect']] .astype(str)
-# add as many column names as you like.
+    questions_bank = pd.read_csv(questions_file_path)
 
+    questions_bank[['question', 'possible_answers', 'answer_indicator','aspect']] = questions_bank[['question', 'possible_answers', 'answer_indicator','aspect']] .astype(str)
+    
+    return(questions_bank)
+
+
+'''questions_bank = read_format_quiz_qs("quiz_questions.csv")
 
 print(questions_bank.info())
 
-def read_format_quiz_qs(data_file):
-    print("hello")
-
-
-
+#read_format_quiz_qs("quiz_questions.csv")'''
