@@ -1,9 +1,10 @@
 import streamlit as st
 from utils.quiz_logic import create_questions_dict, assess_answer, reset_quiz_state
-
+import csv
+import os
 # Initialise session state variables 
 
-# intialise session for the user details
+# initialize session for the user details
 if "quiz_started" not in st.session_state:
     st.session_state.quiz_started = False
 if "quiz_finished" not in st.session_state:
@@ -11,7 +12,20 @@ if "quiz_finished" not in st.session_state:
 if "user_details" not in st.session_state:
     st.session_state.user_details = None
 
-# intialise variables for the quiz 
+# initialize session for user details to store and export
+
+if "user_data" not in st.session_state:
+    st.session_state["user_data"] = {
+        "first_name": "",
+        "last_name":"",
+        "email": "",
+       # "answers": [],
+        "score": 0
+    }
+csv_file = "user_scores.csv"
+fieldnames = ["first_name", "last_name","email", "score", "answers"]
+
+# initialize variables for the quiz 
 # initialize questions dict
 
 if "questions_dict" not in st.session_state:
@@ -43,6 +57,14 @@ def user_fragment():
         last_name_input =st.text_input("Last Name")
 
     user_email = st.text_input("Email address")
+
+    #updating the details to store them
+
+    st.session_state["user_data"]["first_name"] = first_name_input
+    st.session_state["user_data"]["last_name"] = last_name_input
+    st.session_state["user_data"]["email"] = user_email
+
+
 
     if st.button("Start quiz!"):
         if len(first_name_input) == 0 or len(last_name_input) == 0 or len(user_email) == 0:
@@ -82,6 +104,7 @@ def question_fragment():
                 feedback, score_update = assess_answer(selected_answer, question_data)
                 st.session_state.feedback = feedback
                 st.session_state.score += score_update
+                st.session_state["user_data"]["score"] = st.session_state.score
 
                 # If there are more questions remaining, increment the current question index
                 if st.session_state.current_question + 1 < len(st.session_state.questions_dict):
@@ -157,6 +180,14 @@ st.title("Test your knowledge")
 
 # Show quiz finished screen
 if st.session_state.quiz_finished:
+    # Check if file exists to write header
+    file_exists = os.path.isfile(csv_file)
+
+    with open(csv_file, "a", newline="") as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(st.session_state.user_data)
     st.subheader("Quiz finished!")
     st.write(f"Your final score is {st.session_state.score}/{len(st.session_state.questions_dict)}")
     restart_quiz_fragment()
