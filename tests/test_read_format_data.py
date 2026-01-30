@@ -1,4 +1,4 @@
-from app.utils. quiz_logic import read_format_quiz_qs
+from app.utils.quiz_logic import read_format_quiz_qs
 
 import pytest 
 
