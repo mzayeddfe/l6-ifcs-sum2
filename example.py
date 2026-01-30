@@ -1,51 +1,84 @@
 import streamlit as st
-import pandas as pd 
-st.title("Explore Education Statistics API Data Checker")
-st.header("Background")
-st.markdown("This app is to be used for prelimniary checks on datasets to see if they meet the Explore Education Statistics (EES) API standards.")
-st.header("Step 1 - Primary data checks")
-st.markdown("Before starting this process, it is advisable to check that your datasets pass the primary EES data checks." \
-"You can do this by visiting the [EES data screener](https://rsconnect/rsc/dfe-published-data-qa/). " \
-"Please note, this screener is only available for internal use in the Department for Education.")
-st.header("Upload your data")
+from app.utils.create_questions_dict import create_questions_dict
 
-ees_data_path = st.file_uploader("Upload EES data CSV", type="csv")
-if ees_data_path is not None:
-    ees_data = pd.read_csv(ees_data_path)
-    # ...rest of your code...
+# Initialize session state variables
+if "questions" not in st.session_state:
+    st.session_state.questions = create_questions_dict("quiz_questions.csv")
+
+
+if "current_question" not in st.session_state:
+    st.session_state.current_question = 0
+
+if "score" not in st.session_state:
+    st.session_state.score = 0
+
+if "feedback" not in st.session_state:
+    st.session_state.feedback = None
+
+@st.fragment
+def question_fragment():
+    """
+        Fragment to display a question and capture the user's response.
+    """
+    question_data = st.session_state.questions[st.session_state.current_question]
+    st.subheader(f"Question {st.session_state.current_question + 1}/{len(st.session_state.questions)}")
+    st.write(question_data['question'])
+
+    selected_option = st.radio('Choose an answer: ', question_data['possible_answers'])
+    if st.button('Submit'):
+        if selected_option == question_data['correct_answer']:
+            st.session_state.feedback = ('success', 'Correct! 🎉')
+            st.session_state.score += 1
+        else:
+            st.session_state.feedback = ("error", f"Wrong! The correct answer was: {question_data['correct_answer']}")
+
+        if st.session_state.current_question + 1 < len(st.session_state.questions):
+            st.session_state.current_question += 1
+            st.rerun()
+        else:
+            st.session_state.current_question = None
+            st.rerun()
+
+@st.fragment
+def feedback_fragment():
+    """
+    Fragment to display feedback messages.
+    """
+    if st.session_state.feedback:
+        msg_type, msg_content = st.session_state.feedback
+        if msg_type == "success":
+            st.success(msg_content)
+        elif msg_type == "error":
+            st.error(msg_content)
+        st.session_state.feedback = None
+
+@st.fragment
+def score_fragment():
+    """
+        Fragment to display the user’s current score.
+    """
+    st.metric('Current Score', st.session_state.score)
+
+@st.fragment
+def restart_quiz_fragment():
+    """
+        Fragment to restart the quiz.
+    """
+    if st.button('Restart Quiz'):
+        st.session_state.current_question = 0
+        st.session_state.score = 0
+        st.session_state.feedback = None
+        st.rerun()
+
+# Main application
+st.title('Interactive Quiz App')
+
+feedback_fragment()
+
+if st.session_state.current_question is not None:
+    score_fragment()
+    question_fragment()
 else:
-    st.warning("Please upload a CSV file.")
-
-ees_meta_data_path =st.file_uploader('Upload the metadata to your CSV data file', type="csv")
-
-if ees_meta_data_path is not None:
-    ees_meta_data = pd.read_csv(ees_meta_data_path)
-    st.markdown(ees_meta_data)
-    # ...rest of your code...
-else:
-    st.warning("Please upload a CSV file.")
-#read in data 
-
-
-
-st.header("API Data Standards Reports")
-st.header("Data summary")
-
-st.subheader("This is the subheader")
-st.caption("This is the caption")
-st.code("x = 2021")
-st.latex(r''' a+a r^1+a r^2+a r^3 ''')
-st.checkbox('Yes')
-st.button('Click Me')
-st.radio('Pick your gender', ['Male', 'Female'])
-st.selectbox('Pick a fruit', ['Apple', 'Banana', 'Orange'])
-st.multiselect('Choose a planet', ['Jupiter', 'Mars', 'Neptune'])
-st.select_slider('Pick a mark', ['Bad', 'Good', 'Excellent'])
-st.slider('Pick a number', 0, 50)
-st.number_input('Pick a number', 0, 10)
-st.text_input('Email address')
-st.date_input('Traveling date')
-st.time_input('School time')
-st.text_area('Description')
-st.file_uploader('Upload a photo')
-st.color_picker('Choose your favorite color')
+    st.subheader('Quiz Finished! 🎉')
+    st.write(f"Your final score is {st.session_state.score}/{len(st.session_state.questions)}.")
+    restart_quiz_fragment()
