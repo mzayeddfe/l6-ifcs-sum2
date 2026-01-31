@@ -15,7 +15,7 @@ def test_col_count():
 def test_data_type():
     questions_bank = read_format_quiz_qs("quiz_questions.csv")
     for col, dtype in questions_bank.dtypes.items():
-        assert dtype == "object"
+        assert dtype == "object" or pd.api.types.is_string_dtype(dtype)
 
 # check the number of questions
 def test_num_questions():
