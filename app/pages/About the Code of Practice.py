@@ -2,7 +2,8 @@ import streamlit as st
 
 st.markdown("# About the Code of Practice")
 
-st.markdown("""The Code of Practice for Statistics is a set of standards and principles designed to ensure that official statistics published in the UK are trustworthy, high quality, and valuable to everyone who uses them — from decision-makers and analysts to members of the public.""")
+st.markdown("""The Code of Practice for Statistics is a set of standards and principles designed to ensure that official statistics published in the UK are trustworthy, high quality, and valuable to everyone who uses them. 
+This applies to anyone from decision-makers and analysts to members of the public.""")
 
 st.markdown("## What is the Code of Practice?")
 
@@ -12,7 +13,7 @@ It was created under UK law and maintained by the Office for Statistics Regulati
 
 When producers follow the Code, users can be confident that the statistics are reliable, transparent and free from inappropriate influence.
 
-While the Code applies formally to official statistics produced by government bodies, its core ideas can be helpful for anyone working with data and statistics — whether you’re a student, journalist, researcher, policy maker, or data fan.""")
+While the Code applies formally to official statistics produced by government bodies, its core ideas can be helpful for anyone working with data and statistics, for example, journalists or researchers.""")
 
 st.markdown("# Why the Code Matters")
 
@@ -28,7 +29,8 @@ By following these principles, statistics help inform better decision-making, su
 
 st.markdown("## Who Uses It?")
 
-st.markdown("""The Code is officially required for organisations producing National Statistics, but its principles can also be applied voluntarily by other groups who publish or analyse data. This includes public bodies, analysts, communicators and anyone who wants to demonstrate good data practice.""")
+st.markdown("""The Code is officially required for organisations producing National Statistics, such as the Department for Education. 
+This includes public bodies, analysts, communicators and anyone who wants to demonstrate good data practice.""")
 
 st.markdown("## How to Find Out More")
 
@@ -40,4 +42,6 @@ st.markdown("""If you want to explore the Code in more detail or learn how it’
 
 -   Read about the [Trustworthiness, Quality and Value framework that underpins the Code](https://code.statisticsauthority.gov.uk/about-the-code-of-practice-for-statistics/what-is-the-code-of-practice-and-who-is-it-for/?utm_source=chatgpt.com).
 
-Understanding the Code helps you not only answer quiz questions with confidence — it gives you a foundation for thinking critically about statistics in the real world.""")
+-   Visit the [Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/writing-visualising/writing.html#introduction) for guidance on how to write about data to make sure you follow the standards of the Code of Practice.
+
+Understanding the Code gives you a foundation for thinking critically about statistics in the real world and helps you answer these quiz questions with confidence.""")
