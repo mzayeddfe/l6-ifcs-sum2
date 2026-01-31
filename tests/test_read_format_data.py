@@ -1,6 +1,7 @@
 from app.utils.quiz_logic import read_format_quiz_qs
 
 import pytest 
+import pandas as pd
 
 # test that the question dataset has 4 columns 
 
