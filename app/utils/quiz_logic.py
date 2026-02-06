@@ -1,3 +1,6 @@
+import streamlit as st
+import pickle
+
 # function to read and format quiz data from CSV file
 def read_format_quiz_qs(data_file):
     """
@@ -79,6 +82,104 @@ def create_questions_dict(data_file):
         questions_dict_list.append(questions_dict)
     return (questions_dict_list)
 
+def load_questions():
+    quiz_questions = create_questions_dict("quiz_questions.csv")
+    with open('quiz_questions.pkl', 'wb') as f:
+        pickle.dump(quiz_questions, f)
+    with open('quiz_questions.pkl', 'rb') as f:
+        return pickle.load(f)
+
+def init_session_state(quiz_questions):
+    # initialize session for the user details
+    if "quiz_started" not in st.session_state:
+        st.session_state.quiz_started = False
+    if "quiz_finished" not in st.session_state:
+        st.session_state.quiz_finished = False
+    if "user_details" not in st.session_state:
+        st.session_state.user_details = None
+
+    # initialize session for user details to store and export
+
+    if "user_data" not in st.session_state:
+        st.session_state["user_data"] = {
+            "first_name": "",
+            "last_name":"",
+            "email": "",
+        # "answers": [],
+            "score": 0
+        }
+    
+    
+
+    # initialize variables for the quiz 
+    # initialize questions dict
+
+    if "questions_dict" not in st.session_state:
+        st.session_state.questions_dict = quiz_questions
+
+    # Initialise current question 
+
+    if "current_question" not in st.session_state:
+        st.session_state.current_question = 0
+
+    # initialise score 
+
+    if "score" not in st.session_state:
+        st.session_state.score = 0
+
+    '''if "score_saved" not in st.session_state: 
+        st.session_state.score_saved = False'''
+
+
+    # initialise feedback 
+
+    if "feedback" not in st.session_state: 
+        st.session_state.feedback = None 
+
+
+
+# Use fragments for functions for  different sections of the quiz session 
+
+def question_fragment():
+    """
+    Use this fragment to display a question and capture the user's response 
+    """
+
+    if st.session_state.quiz_started == True and st.session_state.current_question is not None:
+        # put a gap between the header and the questions 
+        gap = st.markdown("\n")
+        current_q = st.session_state.current_question
+        # Guard: only access if current_q is a valid integer
+        if isinstance(current_q, int) and 0 <= current_q < len(st.session_state.questions_dict):
+            question_data = st.session_state.questions_dict[current_q]
+            # display question
+            st.write(question_data["question"])
+
+            # display answer options as radio buttons
+            selected_answer = st.radio("Choose an answer: ", question_data["possible_answers"])
+            st.session_state.selected_answer = selected_answer
+
+            # create a submit button with if statements for answer assessment
+            if st.button("Submit"):
+                feedback, score_update = assess_answer(selected_answer, question_data)
+                st.session_state.feedback = feedback
+                st.session_state.score += score_update
+                st.session_state["user_data"]["score"] = st.session_state.score
+
+                # If there are more questions remaining, increment the current question index
+                if st.session_state.current_question + 1 < len(st.session_state.questions_dict):
+                    st.session_state.current_question += 1
+                    st.rerun()
+                else:
+                    # End the quiz by setting quiz_finished True and current_question to None
+                    st.session_state.quiz_started = False
+                    st.session_state.current_question = None
+                    st.session_state.quiz_finished = True
+                    st.rerun()
+        else:
+            st.session_state.quiz_started = False
+            st.session_state.current_question = None
+
 
 def assess_answer(selected_answer, question_data):
     """
@@ -102,6 +203,23 @@ def assess_answer(selected_answer, question_data):
     else:
         return ("error", f"Incorrect! The correct answer was: {question_data['correct_answer']}"), 0
 
+
+def restart_quiz_fragment():
+    """
+    Fragment to restart the quiz
+    """
+
+    if st.button("Restart Quiz"):
+        reset_quiz_state(st.session_state)
+        st.session_state.quiz_started = False
+        st.session_state.current_question = 0
+        st.session_state.score = 0
+        #st.session_state.score_saved = False
+        st.session_state.feedback = None
+        st.session_state.quiz_finished = False
+        st.rerun()
+    
+
 def reset_quiz_state(session_state):
     """
     Resets the quiz-related state variables in the provided session_state object.
@@ -117,6 +235,7 @@ def reset_quiz_state(session_state):
     """
     session_state.current_question = None
     session_state.score = 0
+   # session_state.score_saved = False
     session_state.feedback = None
     session_state.selected_answer = None
     session_state.quiz_started = False
