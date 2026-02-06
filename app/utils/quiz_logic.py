@@ -127,8 +127,8 @@ def init_session_state(quiz_questions):
     if "score" not in st.session_state:
         st.session_state.score = 0
 
-    '''if "score_saved" not in st.session_state: 
-        st.session_state.score_saved = False'''
+    if "score_saved" not in st.session_state: 
+        st.session_state.score_saved = False
 
 
     # initialise feedback 
@@ -214,7 +214,7 @@ def restart_quiz_fragment():
         st.session_state.quiz_started = False
         st.session_state.current_question = 0
         st.session_state.score = 0
-        #st.session_state.score_saved = False
+        st.session_state.score_saved = False
         st.session_state.feedback = None
         st.session_state.quiz_finished = False
         st.rerun()
