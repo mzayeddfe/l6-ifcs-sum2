@@ -1,52 +1,52 @@
+
 import streamlit as st
-from utils.quiz_logic import *
-from utils.ui_components import *
-from utils.data_utils import *
 import csv
-import os
+from utils.export_utils import *
+from utils.session_utils import *
+from utils.feedback_utils import *
+from utils.form_utils import *
+import pandas as pd
 
-#load in data
+from utils.quiz_logic import Quiz, User
 
 
-with st.spinner("Loading quiz ..."):
-    quiz_questions = load_questions()
-# Initialise session state variables 
-
-init_session_state(quiz_questions)
-# Ensure score_saved is initialized
-if "score_saved" not in st.session_state:
-    st.session_state.score_saved = False
-            
-
-# Main quiz page 
-
+init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
 
 st.title("Test your knowledge")
 
-csv_file = "user_scores.csv"
-fieldnames = ["first_name", "last_name","email", "score", "answers"]
+# Display feedback if present
+if st.session_state.feedback is not None:
+    msg_type, msg_content = st.session_state.feedback
+    if msg_type == "success":
+        st.success(msg_content)
+    else:
+        st.error(msg_content)
+    st.session_state.feedback = None
 
-# Show quiz finished screen
-if st.session_state.quiz_finished:
+# User details form
+if st.session_state.user is None:
+  user_form()
+
+# Quiz logic
+elif st.session_state.quiz.current_question() is not None:
+    q = st.session_state.quiz.current_question()
+    st.subheader(q.text)
+    answer = st.radio("Choose an answer:", q.possible_answers)
+    if st.button("Submit"):
+        msg_type, msg_content = give_feedback(st.session_state.quiz ,st.session_state.user,answer)
+        st.session_state.feedback= (msg_type, msg_content)
+        st.rerun()
+    st.write(f"Score: {st.session_state.user.score}")
+
+# Quiz finished
+else:
+    st.subheader("Quiz Finished!")
+    st.write(f"Your final score is {st.session_state.user.score}/{len(st.session_state.quiz.questions)}")
     if not st.session_state.score_saved:
-        file_exists = os.path.isfile(csv_file)
-        with open(csv_file, "a", newline="") as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            if not file_exists:
-                writer.writeheader()
-            writer.writerow(st.session_state.user_data)
-        st.session_state.score_saved = True
-    st.subheader("Quiz finished!")
-    st.write(f"Your final score is {st.session_state.score}/{len(st.session_state.questions_dict)}")
-    restart_quiz_fragment()
-# Show user form if quiz not started
-elif st.session_state.quiz_started == False:
-    # Reset score_saved so next quiz can be saved
-    st.session_state.score_saved = False
-    user_details_section()
-# Show questions if quiz started and current_question is valid
-elif st.session_state.quiz_started == True and st.session_state.current_question is not None:
-    question_fragment()
-    score_feedback_fragment()
-
-
+        write_user_scores(st.session_state.user)
+    st.session_state.score_saved = True
+    export_results(st.session_state.user)
+    if st.button("Restart Quiz"):
+        del st.session_state.quiz
+        del st.session_state.user
+        st.rerun()
