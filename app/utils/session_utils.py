@@ -6,7 +6,8 @@ def init_session(quiz = None):
     Args:
         quiz (Quiz, optional): The quiz instance to store in session state.
     """
-    # Initialize feedback in session state if not present
+  
+        # Initialize feedback in session state if not present
     if "quiz" not in st.session_state and quiz is not None:
         st.session_state.quiz= quiz
     

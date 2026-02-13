@@ -9,10 +9,13 @@ def give_feedback(quiz, user,answer):
     Returns:
         tuple: (str, str) feedback type and message.
     """
-    correct, question = quiz.answer_current(answer)
-    user.record_answer(question, answer, correct)
-    if correct:
-        return  ("success", "Correct! 🎉")
-    else:
-       return ("error", f"Incorrect! The correct answer was: {question.correct_answer}")
-    
+    try:
+        correct, question = quiz.answer_current(answer)
+        user.record_answer(question, answer, correct)
+        if correct:
+            return  ("success", "Correct! 🎉")
+        else:
+          return ("error", f"Incorrect! The correct answer was: {question.correct_answer}")
+    except Exception as e:
+        st.error(f"Loading feedback failed: {e}")
+        return ("error", "An unexpected error occurred while processing your answer.")

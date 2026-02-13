@@ -51,5 +51,10 @@ def user_form():
                 st.warning("Please enter a valid email")
 
             else:
-                st.session_state.user = User(first, last, email)
-                st.rerun()
+                try:
+    
+                    st.session_state.user = User(first, last, email)
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"An unexpected error occurred: {e}")
+                   

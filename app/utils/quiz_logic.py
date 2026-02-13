@@ -85,15 +85,18 @@ class Quiz:
         Returns:
             Quiz: An instance of the Quiz class.
         """
-        df = pd.read_csv(csv_path)
-        questions = []
-        for q_text in df["question"].unique():
-            q_df = df[df["question"]== q_text]
-            possible_answers = list(q_df["possible_answers"])
-            correct_answer = q_df[q_df["answer_indicator"]== "c"]['possible_answers'].iloc[0]
-            aspect= q_df["aspect"].iloc[0]
-            questions.append(Question(q_text,possible_answers,correct_answer, aspect))
-        return cls(questions)
+        try:
+            df = pd.read_csv(csv_path)
+            questions = []
+            for q_text in df["question"].unique():
+                q_df = df[df["question"]== q_text]
+                possible_answers = list(q_df["possible_answers"])
+                correct_answer = q_df[q_df["answer_indicator"]== "c"]['possible_answers'].iloc[0]
+                aspect= q_df["aspect"].iloc[0]
+                questions.append(Question(q_text,possible_answers,correct_answer, aspect))
+            return cls(questions)
+        except Exception as e:
+            raise RuntimeError(f"Failed to load quiz CSV: {e}")
     
     def current_question(self):
         """
