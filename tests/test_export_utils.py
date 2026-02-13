@@ -5,6 +5,9 @@ from app.utils.quiz_logic import User, Question
 from app.utils.export_utils import write_user_scores, export_results
 
 def test_write_user_scores():
+    """
+    Test that write_user_scores correctly writes a user's score to a CSV file.
+    """
     # Create a test user
     user = User("Test", "User", "test@example.com")
     user.score = 5
@@ -32,6 +35,9 @@ def test_write_user_scores():
 
 
 def test_export_results():
+    """
+    Test that export_results returns a CSV string containing the user's answers.
+    """
     user = User("Test", "User", "test@example.com")
     q1 = Question(
         text="What is 1+1?",

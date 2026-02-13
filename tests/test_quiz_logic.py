@@ -6,6 +6,9 @@ from app.utils.quiz_logic import *
 #testing the question class 
 
 def test_question_is_correct():
+    """
+    Test that Question.is_correct returns True for the correct answer and False otherwise.
+    """
     q = Question(
         text = "What is 1+1?",
         possible_answers = ["1","2","3","4"],
@@ -19,6 +22,9 @@ def test_question_is_correct():
 #test user class 
 
 def test_user_record_answer():
+    """
+    Test that User.record_answer correctly records answers and updates the score.
+    """
     user_info = User(
         first_name = "John",
         last_name = "Doe",
@@ -46,6 +52,9 @@ def test_user_record_answer():
         
 
 def test_quiz_from_csv():
+    """
+    Test that Quiz.from_csv loads questions from a CSV file and returns a Quiz instance.
+    """
     csv_path = "data/quiz_questions.csv"
 
     result=Quiz.from_csv(csv_path)
@@ -55,6 +64,9 @@ def test_quiz_from_csv():
 
 
 def test_quiz_current_question():
+    """
+    Test that Quiz.current_question returns the correct question based on current_index.
+    """
     csv_path = "data/quiz_questions.csv"
 
     quiz=Quiz.from_csv(csv_path)
@@ -65,6 +77,9 @@ def test_quiz_current_question():
 
 
 def test_answer_current():
+    """
+    Test that Quiz.answer_current returns correct results and advances the quiz index.
+    """
     quiz = Quiz.from_csv("data/quiz_questions.csv")
     quiz.current_index = 0
     question = quiz.current_question()
