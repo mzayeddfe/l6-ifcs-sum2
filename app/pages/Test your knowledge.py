@@ -43,9 +43,15 @@ else:
     st.subheader("Quiz Finished!")
     st.write(f"Your final score is {st.session_state.user.score}/{len(st.session_state.quiz.questions)}")
     if not st.session_state.score_saved:
-        write_user_scores(st.session_state.user)
+        write_user_scores(st.session_state.user, "user_scores.csv")
     st.session_state.score_saved = True
-    export_results(st.session_state.user)
+    csv_data = export_results(st.session_state.user)
+    st.download_button(
+        label = "Export my answers",
+        data = csv_data,
+        file_name = "COP_quiz_answers.csv",
+        mime = "text/csv"
+    )
     if st.button("Restart Quiz"):
         del st.session_state.quiz
         del st.session_state.user

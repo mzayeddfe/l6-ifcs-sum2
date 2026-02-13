@@ -1,8 +1,8 @@
 import csv
 import streamlit as st
 import io
-def write_user_scores(user):
-    with open("user_scores.csv", "a", newline="") as csvfile:
+def write_user_scores(user, file_name):
+    with open(file_name, "a", newline="") as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=["first_name", "last_name", "email", "score"])
             if csvfile.tell() == 0:
                 writer.writeheader()
@@ -31,10 +31,5 @@ def export_results(user):
     fieldnames=["question","aspect","your_answer","correct"])
     writer.writeheader()
     writer.writerows(export_rows)
-    csv_data = output.getvalue()
-    st.download_button(
-        label = "Export my answers",
-        data = csv_data,
-        file_name = "COP_quiz_answers.csv",
-        mime = "text/csv"
-    )
+    return output.getvalue()
+    
