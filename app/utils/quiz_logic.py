@@ -4,6 +4,11 @@ import pandas as pd
 class Question:
     """
     Represents a quiz question with possible answers and the correct answer.
+    Attributes:
+        text (str): The question text.
+        possible_answers (list): List of possible answers.
+        correct_answer (str): The correct answer.
+        aspect (str): The aspect/category of the question.
     """
     def __init__(self, text, possible_answers, correct_answer, aspect):
         """
@@ -33,6 +38,12 @@ class Question:
 class User:
     """
     Represents a user taking the quiz, tracking their details and answers.
+    Attributes:
+        first_name (str): User's first name.
+        last_name (str): User's last name.
+        email (str): User's email address.
+        score (int): User's current score.
+        answers (list): List of answer records.
     """
     def __init__(self, first_name, last_name, email):
         """

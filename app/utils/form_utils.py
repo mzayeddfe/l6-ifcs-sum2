@@ -33,8 +33,10 @@ def user_form():
     """
     Display a Streamlit form for user details and validate input.
     On successful submission, stores a User object in session state.
+    Returns:
+        None
     """
-
+    # Display form for user input
     with st.form("user_details"):
         first = st.text_input("First Name")
         last = st.text_input("Last Name")

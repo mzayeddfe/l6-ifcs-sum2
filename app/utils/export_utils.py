@@ -32,6 +32,7 @@ def export_results(user):
     Returns:
         str: CSV data as a string.
     """
+    # Try to export user answers to CSV string, handle errors gracefully
     try:
         export_rows = []
         for ans in user.answers:
@@ -41,14 +42,13 @@ def export_results(user):
                 "your_answer": ans["answer"],
                 "correct": ans["correct"]
             })
-    
-        #create csv in memory 
-        output =io.StringIO()
-        writer= csv.DictWriter(output,
-        fieldnames=["question","aspect","your_answer","correct"])
+        # Create CSV in memory
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=["question", "aspect", "your_answer", "correct"])
         writer.writeheader()
         writer.writerows(export_rows)
         return output.getvalue()
-    except Exception as e: 
-         return ""
+    except Exception as e:
+        # Return empty string if export fails
+        return ""
         

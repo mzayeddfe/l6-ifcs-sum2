@@ -17,14 +17,14 @@ The application has been developed using Streamlit in Python. The repository inc
 ### GUI Design
 - The application uses Streamlit to provide a web-based graphical user interface (GUI).
 - The user journey is as follows:
-  1. The user lands on the Home page, which provides an overview and navigation.
-  2. The user accesses the "Test your knowledge" page to start the quiz.
+    1. The user lands on the Info page, which provides a user guide, information about the Code of Practice, and FAQs.
+    2. The user accesses the "Test your knowledge" page to start the quiz.
   3. A form collects the user's first name, last name, and email, with validation for each field.
   4. The quiz presents one question at a time, with multiple-choice answers using radio buttons.
   5. Immediate feedback is given after each answer (success or error message).
   6. At the end, the user sees their score and can export their answers as a CSV file or restart the quiz.
 - The design is simple and accessible, suitable for non-technical users.
-- (Optionally, include Figma or prototyping screenshots/links here.)
+- INSERT FIGMA LINK
 
 
 ### Functional Requirements
@@ -94,7 +94,7 @@ Quiz
 ```
 
 - **Modules:**
-  - `app/pages/`: Streamlit page scripts (Home, About, FAQs, Test your knowledge)
+    - `app/pages/`: Streamlit page scripts (Info, Test your knowledge)
   - `app/utils/`: Logic for quiz, forms, feedback, export, and session state
   - `data/`: Quiz questions CSV
   - `tests/`: Unit tests for logic and utilities
@@ -308,8 +308,8 @@ If any test fails, details are shown in the CI logs and locally in the terminal,
 #### How to Use the Quiz Application
 1. **Access the Application:**
    - Open the application in your web browser (typically via a provided Streamlit link or by running locally).
-2. **Home Page:**
-   - Read the introduction and user guide for an overview of the quiz and navigation instructions.
+2. **Info Page:**
+    - Read the user guide, information about the Code of Practice, and FAQs for an overview of the quiz and navigation instructions.
 3. **Start the Quiz:**
    - Go to the "Test your knowledge" page.
    - Enter your first name, last name, and email address in the form. All fields are required and validated.
@@ -341,7 +341,7 @@ If any test fails, details are shown in the CI logs and locally in the terminal,
    ```
 3. **Start the Application:**
    ```sh
-   streamlit run app/Home.py
+    streamlit run app/pages/Info.py
    ```
    - Use the Streamlit sidebar to navigate between pages.
 
@@ -356,7 +356,7 @@ If any test fails, details are shown in the CI logs and locally in the terminal,
    - Test results will be displayed in the terminal.
 
 #### Code Structure Overview
-- `app/pages/`: Streamlit page scripts (Home, About, FAQs, Test your knowledge)
+- `app/pages/`: Streamlit page scripts (Info, Test your knowledge)
 - `app/utils/`: Core logic modules (quiz logic, forms, feedback, export, session state)
 - `data/`: Quiz questions CSV file
 - `tests/`: Unit tests for logic and utilities
