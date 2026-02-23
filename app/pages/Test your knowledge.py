@@ -14,6 +14,8 @@ init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
 
 st.title("Test your knowledge")
 
+st.sidebar.image("images/duck_guidance.png")
+
 # Display feedback if present
 if st.session_state.feedback is not None:
     msg_type, msg_content = st.session_state.feedback
@@ -41,7 +43,14 @@ elif st.session_state.quiz.current_question() is not None:
 # Quiz finished
 else:
     st.subheader("Quiz Finished!")
-    st.write(f"Your final score is {st.session_state.user.score}/{len(st.session_state.quiz.questions)}")
+    total = len(st.session_state.quiz.questions)
+    score = st.session_state.user.score
+    percent = (score / total) * 100 if total > 0 else 0
+    st.write(f"Your final score is {score}/{total}")
+    if percent >= 80:
+        st.success(f"Congratulations! You passed the quiz with {percent:.0f}% correct.")
+    else:
+        st.error(f"You did not pass. You scored {percent:.0f}%. Try again to improve your score!")
     if not st.session_state.score_saved:
         write_user_scores(st.session_state.user, "user_scores.csv")
     st.session_state.score_saved = True

@@ -7,6 +7,8 @@ st.set_page_config(
 
 st.title("Code of Practice Quiz")
 
+st.sidebar.image("images/duck_guidance.png")
+
 # --- Table of Contents ---
 st.markdown("""
 ## Table of Contents
