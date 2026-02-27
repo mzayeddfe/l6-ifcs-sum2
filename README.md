@@ -60,8 +60,8 @@ The application has been developed using Streamlit in Python. The repository inc
   - csv, io, re (standard library for file and input handling)
 - **Environment**:
   - The following were components of the environment this application was developed and tested on:
-        - Python Version Used: 3.13.7  
-        - OS: Windows 11
+    - Python Version Used: 3.13.7  
+    - OS: Windows 11
 - **Tools:**
   - Figma for prototyping
   - pytest (for testing)
@@ -392,7 +392,7 @@ This combination of automated and manual testing provides both code-level assura
 
 Automated unit tests were run using `pytest`. Below is an example screenshot of the tests running and passing:
 
-![Unit Test Results](docs/unit_test_results.png)
+![Unit tests passing locally](images/unit_test_results.png)
 
 - All core logic tests (quiz logic, export, session utils) passed successfully.
 - Tests are re-run automatically on every code push via GitHub Actions CI.
@@ -473,10 +473,59 @@ For further technical details, see the comments and docstrings within each modul
 
 ## Evaluation Section
 
+
 ### What Went Well
 
-The development of this project was a valuable learning experience, particularly in applying [Streamlit](https://streamlit.io/) to create an interactive and accessible web application. The modular structure of the codebase, with clear separation of concerns (logic, forms, feedback, export, and session management), made the project easier to maintain and extend. Leveraging [pandas](https://pandas.pydata.org/) for CSV handling streamlined data operations, and the use of Python’s standard library kept dependencies minimal. The quiz application met its core objectives as a Minimum Viable Product, providing a user-friendly interface, immediate feedback, and exportable results. Unit tests were implemented for key logic components, which helped ensure reliability and catch regressions early.
+- Learning about Streamlit was valuable as it allowed me to explore a different framework for object-oriented programming. The closest thing I have experience with that is similar is RShiny apps.
+- The modular structure of the codebase, with clear separation of concerns (logic, forms, feedback, export, and session management), made the project easier to maintain and extend.
+- Leveraging [pandas](https://pandas.pydata.org/) for CSV handling streamlined data operations, and the use of Python’s standard library kept dependencies minimal.
+- The quiz application met its core objectives as a Minimum Viable Product, providing a user-friendly interface, immediate feedback, and exportable results.
+- Unit tests were implemented for key logic components, which helped ensure reliability and catch regressions early.
+
+### Struggles
+
+- Managing session states was challenging, especially when adding code for conditional actions in the quiz, such as moving to the next question, showing results, and restarting the quiz.
+- Designing tests for classes and functions was difficult, particularly when functions/classes are dependent on each other. For example, in the repo:
+
+```python
+def test_user_record_answer():
+    """
+    Test that User.record_answer correctly records answers and updates the score.
+    """
+    user_info = User(
+        first_name = "John",
+        last_name = "Doe",
+        email = "john.doe@gmail.com"
+    )
+    q = Question(
+        text="What is 1+1?",
+        possible_answers=["1", "2", "3", "4"],
+        correct_answer="2",
+        aspect="maths"
+    )
+    user_info.record_answer(q,"2",True)
+    assert user_info.score == 1
+    assert user_info.answers[-1]["answer"]=="2"
+    assert user_info.answers[-1]["correct"] is True
+```
+- Usually, I start with functions as I can see clearly what will be reused in a process. However, here I had to start with code and then refactor it as I got more familiar with Streamlit and classes. It was a learning curve.
+
+### Changed from the Prototype
+
+- I changed the design so that Fredrick (the Unit's duck mascot) is available throughout the pages, which encourages brand recognition.
+- Instead of having multiple questions on a page, I designed it to be question by question while providing feedback to make the quiz more engaging for users. Other benefits include:
+    - Users receive immediate feedback, which supports learning and retention.
+    - The quiz is less overwhelming and easier to navigate, especially for non-technical users.
 
 ### What Could Have Been Improved
 
-While the MVP approach allowed for timely delivery, there were areas where the project could be enhanced. The user interface, though functional, could benefit from more advanced design and accessibility features—potentially by incorporating more feedback from end users. Error handling, while present, could be made more robust, especially for edge cases such as malformed CSV files or unexpected user input. Automated testing coverage could be expanded to include the GUI and integration tests, not just unit tests. Additionally, implementing persistent user authentication or a database backend (such as [SQLite](https://www.sqlite.org/index.html)) could improve scalability and data integrity for future versions. Finally, more comprehensive documentation and user guides would further support onboarding and maintenance.
+
+While the MVP approach allowed for timely delivery, there are several areas where this project could be improved:
+
+- **User Interface & Accessibility:** The UI is functional but could be enhanced with more advanced design elements and accessibility features. Incorporating feedback from end users and using more Streamlit widgets or custom styling would make the app more engaging and inclusive.
+- **Session State Management:** Managing session state in Streamlit was sometimes tricky, especially for conditional logic and navigation. More robust patterns or use of Streamlit's newer features could simplify this.
+- **Error Handling:** Although exception handling is present, it could be expanded to cover more edge cases, such as malformed CSV files, missing data, or unexpected user input. More user-friendly error messages and recovery options would improve the experience.
+- **Testing Coverage:** While unit tests exist for core logic, tests for GUI interactions and integration between modules are limited. Expanding test coverage to include these areas would help catch more issues and ensure reliability.
+- **Documentation:** Although docstrings and comments are present, more comprehensive technical documentation and user guides would further support onboarding and maintenance, especially for new contributors.
+- **Data Storage:** Currently, all data is stored in local CSV files. For larger-scale or multi-user scenarios, implementing persistent user authentication or a database backend (such as [SQLite](https://www.sqlite.org/index.html)) would improve scalability and data integrity.
+- **Development Workflow:** The process involved refactoring code as familiarity with Streamlit and object-oriented design grew. Starting with clearer architecture or planning could reduce the need for later refactoring.
