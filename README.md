@@ -122,7 +122,10 @@ Quiz
 
 ## Development Section
 
-This section explains the main parts of the application, with code blocks and descriptions to demonstrate how the system works.
+
+### Performance Considerations
+
+A challenge during development was decreasing the load time for the quiz page, which was initially caused by loading the quiz data from CSV on every rerun. To address this, the code was structured to load the quiz questions once at the start of the session and store them in Streamlit's session state. This ensures that data is only loaded from disk a single time per user session, significantly improving responsiveness and user experience.
 
 ### Main Application Flow
 
@@ -503,7 +506,10 @@ For further technical details, see the comments and docstrings within each modul
 - The quiz application met its core objectives as a Minimum Viable Product, providing a user-friendly interface, immediate feedback, and exportable results.
 - Unit tests were implemented for key logic components, which helped ensure reliability and catch regressions early.
 
+
 ### Struggles
+
+- Decreasing the load time for the quiz page was a challenge. Initially, loading quiz data from CSV on every rerun caused noticeable delays. Refactoring the code to load questions once per session and store them in Streamlit's session state greatly improved performance and user experience.
 
 - Managing session states was challenging, especially when adding code for conditional actions in the quiz, such as moving to the next question, showing results, and restarting the quiz.
 - Designing tests for classes and functions was difficult, particularly when functions/classes are dependent on each other. For example, in the repo:
