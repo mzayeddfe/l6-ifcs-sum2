@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="l6-ifcs-sum2">l6-ifcs-sum2</h1>
+<p>This is a repo for the second summative assignment for the intensive foundations of computer science module in the L6 data science apprenticeship.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#design-section">Design Section</a>
+<ul>
+<li><a href="#gui-design">GUI Design</a></li>
+<li><a href="#functional-requirements">Functional Requirements</a></li>
+<li><a href="#non-functional-requirements">Non-Functional Requirements</a></li>
+<li><a href="#tech-stack-outline">Tech Stack Outline</a></li>
+<li><a href="#code-design-document">Code Design Document</a></li>
+</ul>
+</li>
+<li><a href="#development-section">Development Section</a>
+<ul>
+<li><a href="#performance-considerations">Performance Considerations</a></li>
+<li><a href="#main-application-flow">Main Application Flow</a></li>
+<li><a href="#exception-handling">Exception Handling</a></li>
+<li><a href="#core-classes-and-logic">Core Classes and Logic</a></li>
+<li><a href="#code-documentation-and-docstrings">Code Documentation and Docstrings</a></li>
+<li><a href="#utility-modules">Utility Modules</a></li>
+<li><a href="#data-storage">Data Storage</a></li>
+</ul>
+</li>
+<li><a href="#testing-section">Testing Section</a></li>
+<li><a href="#documentation-section">Documentation Section</a>
+<ul>
+<li><a href="#user-documentation">User Documentation</a></li>
+<li><a href="#technical-documentation">Technical Documentation</a></li>
+</ul>
+</li>
+<li><a href="#evaluation-section">Evaluation Section</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>This project was developed within the context of the Department for Education (DfE), specifically reflecting the work of the Statistics Services Unit (SSU) operating alongside the Head of Profession for Statistics (HoP) office within the <a href="https://analysisfunction.civilservice.gov.uk/government-statistical-service-and-statistician-group/">Government Statistical Service (GSS)</a>. This environment involves the production, analysis, and dissemination of official education statistics, with close alignment to professional standards set by the GSS. Staff are expected to apply the UK Code of Practice for Statistics when producing and communicating data to ensure outputs are trustworthy, high quality, and serve the public good.</p>
+<p>The quiz application is relevant to the DfE as understanding the Code of Practice is essential for analysts and statisticians working under the leadership of the HoP. Within the Statistics Services Unit, the Code underpins decisions about data quality, transparency, and communication. The quiz supports employer needs by providing an accessible learning resource that can be used for staff development, onboarding, and continuing professional development activities, helping reinforce professional standards in a practical way.</p>
+<p>The project was delivered as a Minimum Viable Product (MVP) in order to focus on essential functionality while remaining achievable within time and resource constraints. The MVP includes core features such as multiple choice questions, user input, and feedback, ensuring the application delivers learning value without unnecessary complexity. This reflects common practice in public sector digital and analytical projects, where iterative development is encouraged.</p>
+<p>The application has been developed using Streamlit in Python. The repository includes the source code, documentation, and instructions for running the application locally.</p>
+<h2 id="design-section">Design Section</h2>
+<h3 id="gui-design">GUI Design</h3>
+<ul>
+<li>The application uses Streamlit to provide a web-based graphical user interface (GUI).</li>
+<li>The application prototype was made on Figma. Use this link to see the <a href="https://www.figma.com/design/Emu6EbjRNC1RxjaPPBbMlO/ifc-sum2?node-id=4330-1381&amp;t=ZigtyyaSCmRnOK08-1">Figma prototype</a>.</li>
+<li>If the link above does not work, please see the screenshots below for the prototype.</li>
+</ul>
+<p><img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/about_page.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/fill_details.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/questions.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/pass.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/fail.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/contact_us.png" alt=""></p>
+<ul>
+<li>The user journey is as follows:
+<ol>
+<li>The user lands on the Info page, which provides a user guide, information about the Code of Practice, and FAQs.</li>
+<li>The user accesses the &quot;Test your knowledge&quot; page to start the quiz.</li>
+<li>A form collects the user's first name, last name, and email, with validation for each field.</li>
+<li>The quiz presents one question at a time, with multiple-choice answers using radio buttons.</li>
+<li>Immediate feedback is given after each answer (success or error message).</li>
+<li>At the end, the user sees their score and can export their answers as a CSV file or restart the quiz.</li>
+</ol>
+</li>
+<li>Screenshots showing the user journey is shown below.</li>
+<li>The design is simple and accessible, suitable for non-technical users.
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/about_page_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/fill_details_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/question_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/incorrect_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/correct_answer_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/final_quiz_page_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/contact_us_app.png" alt=""></li>
+</ul>
+<h3 id="functional-requirements">Functional Requirements</h3>
+<ul>
+<li>The system shall allow users to start a quiz via the GUI.</li>
+<li>The system shall validate user answers and provide immediate feedback.</li>
+<li>The system shall store quiz results in a CSV file.</li>
+<li>The system shall allow administrators to export results.</li>
+</ul>
+<h3 id="designdevelopment-note">Design/Development Note</h3>
+<p>Capturing the user's divisional area was included in the initial prototype, but is not present in the current app. This is because there are ongoing discussions within the department about how best to segment quiz collections and results. The design remains flexible to allow for future inclusion of this feature once requirements are finalized.</p>
+<h3 id="non-functional-requirements">Non-Functional Requirements</h3>
+<ul>
+<li>The application shall be usable by non-technical staff.</li>
+<li>The system shall respond to user actions within 2 seconds.</li>
+<li>The codebase shall follow PEP 8 conventions.</li>
+<li>The application shall handle invalid input gracefully.</li>
+<li>The app should be accessible and usable on standard web browsers.</li>
+<li>All user data is stored locally in CSV files; no external database is required.</li>
+<li>The app should handle errors gracefully and provide clear feedback to users.</li>
+</ul>
+<h3 id="tech-stack-outline">Tech Stack Outline</h3>
+<ul>
+<li><strong>Languages:</strong> Python 3</li>
+<li><strong>Framework:</strong> Streamlit (for GUI)</li>
+<li><strong>Libraries:</strong>
+<ul>
+<li>pandas (for CSV/question handling)</li>
+<li>streamlit (for UI and session state)</li>
+<li>csv, io, re (standard library for file and input handling)</li>
+</ul>
+</li>
+<li><strong>Environment</strong>:
+<ul>
+<li>The following were components of the environment this application was developed and tested on:
+<ul>
+<li>Python Version Used: 3.13.7</li>
+<li>OS: Windows 11</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Tools:</strong>
+<ul>
+<li>Figma for prototyping</li>
+<li>pytest (for testing)</li>
+</ul>
+</li>
+<li><strong>Storage:</strong>
+<ul>
+<li>Quiz questions: CSV file (<code>data/quiz_questions.csv</code>)</li>
+<li>User scores: CSV file (<code>user_scores.csv</code>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="code-design-document">Code Design Document</h3>
+<ul>
+<li>The code is organized into modules for logic, forms, feedback, export, and session management.</li>
+<li><strong>Key Classes:</strong>
+<ul>
+<li><code>Question</code>: Represents a quiz question, possible answers, correct answer, and aspect/category.</li>
+<li><code>User</code>: Represents a quiz participant, tracks name, email, score, and answers.</li>
+<li><code>Quiz</code>: Manages the list of questions, current state, and answer logic.</li>
+</ul>
+</li>
+<li><strong>Main Flow:</strong>
+<ul>
+<li>The app initializes session state and loads questions from CSV.</li>
+<li>User details are collected and validated.</li>
+<li>The quiz logic presents questions, records answers, and updates scores.</li>
+<li>Results are saved and can be exported.</li>
+</ul>
+</li>
+<li><strong>Class Diagram (textual):</strong></li>
+</ul>
+<pre class="hljs"><code><div>User
+ ├─ first_name: str
+ ├─ last_name: str
+ ├─ email: str
+ ├─ score: int
+ └─ answers: list
+      └─ {question: Question, answer: str, correct: bool}
+
+Question
+ ├─ text: str
+ ├─ possible_answers: list
+ ├─ correct_answer: str
+ └─ aspect: str
+
+Quiz
+ ├─ questions: list[Question]
+ ├─ current_index: int
+ ├─ from_csv(csv_path): Quiz
+ ├─ current_question(): Question
+ └─ answer_current(answer): (bool, Question)
+</div></code></pre>
+<ul>
+<li><strong>Modules:</strong>
+<ul>
+<li><code>app/pages/</code>: Streamlit page scripts (Info, Test your knowledge, Contact Us)</li>
+<li><code>app/utils/</code>: Logic for quiz, forms, feedback, export, and session state</li>
+<li><code>data/</code>: Quiz questions CSV</li>
+<li><code>tests/</code>: Unit tests for logic and utilities</li>
+</ul>
+</li>
+</ul>
+<h2 id="development-section">Development Section</h2>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<p>A challenge during development was decreasing the load time for the quiz page, which was initially caused by loading the quiz data from CSV on every rerun. To address this, the code was structured to load the quiz questions once at the start of the session and store them in Streamlit's session state. This ensures that data is only loaded from disk a single time per user session, significantly improving responsiveness and user experience.</p>
+<h3 id="exception-handling">Exception Handling</h3>
+<p>Exception handling is implemented throughout the application to ensure robust and user-friendly error management:</p>
+<ul>
+<li><strong>Quiz Loading:</strong> When loading quiz questions from the CSV file, errors such as missing files or malformed data are caught. If an error occurs, a clear message is displayed to the user in the Streamlit interface, and the quiz will not proceed with invalid data.</li>
+<li><strong>Answer Processing:</strong> When processing answers, the app checks for unexpected states (such as missing questions) and reports errors to the user if they occur, preventing crashes.</li>
+<li><strong>Exporting and Saving:</strong> When exporting results or saving user scores, file I/O errors are caught and reported using Streamlit's error messaging, so users are informed if their data could not be saved or exported.</li>
+<li><strong>Input Validation:</strong> All user input (names, emails) is validated before processing. Invalid input is rejected with a clear message, and the user is prompted to correct it.</li>
+<li><strong>General Feedback:</strong> Any unexpected errors encountered during quiz progression or feedback are caught and displayed to the user, ensuring the app fails gracefully and provides actionable information.</li>
+</ul>
+<h4 id="example-exception-handling-in-quiz-loading">Example: Exception Handling in Quiz Loading</h4>
+<p>Below is a code snippet from the <code>Quiz</code> class showing how exceptions are handled when loading quiz questions from a CSV file:</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@classmethod</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">from_csv</span><span class="hljs-params">(cls, csv_path)</span>:</span>
+    <span class="hljs-string">"""
+    Create a Quiz instance from a CSV file of questions.
+    Args:
+        csv_path (str): Path to the CSV file.
+    Returns:
+        Quiz: An instance of the Quiz class.
+    """</span>
+    <span class="hljs-keyword">try</span>:
+        df = pd.read_csv(csv_path)
+        questions = []
+        <span class="hljs-keyword">for</span> q_text <span class="hljs-keyword">in</span> df[<span class="hljs-string">"question"</span>].unique():
+            q_df = df[df[<span class="hljs-string">"question"</span>] == q_text]
+            possible_answers = list(q_df[<span class="hljs-string">"possible_answers"</span>])
+            correct_answer = q_df[q_df[<span class="hljs-string">"answer_indicator"</span>] == <span class="hljs-string">"c"</span>][<span class="hljs-string">"possible_answers"</span>].iloc[<span class="hljs-number">0</span>]
+            aspect = q_df[<span class="hljs-string">"aspect"</span>].iloc[<span class="hljs-number">0</span>]
+            questions.append(Question(q_text, possible_answers, correct_answer, aspect))
+        <span class="hljs-keyword">return</span> cls(questions)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f"Failed to load quiz CSV: <span class="hljs-subst">{e}</span>"</span>)
+</div></code></pre>
+<p>If an error occurs (such as a missing file or malformed data), a <code>RuntimeError</code> is raised with a descriptive message, ensuring the issue can be reported to the user and debugged effectively.</p>
+<p>This script manages the user journey: collecting user details, presenting questions, handling answers, providing feedback, and exporting results.</p>
+<h3 id="main-application-flow">Main Application Flow</h3>
+<p>The application is structured as a Streamlit app with multiple pages:</p>
+<ul>
+<li><code>About.py</code>: User guide, Code of Practice information, FAQs</li>
+<li><code>Test your knowledge.py</code>: Main quiz logic</li>
+<li><code>Contact Us.py</code>: Contact details and feedback form
+The main quiz logic is in <code>app/pages/Test your knowledge.py</code>:</li>
+</ul>
+<pre class="hljs"><code><div>import streamlit as st
+from utils.export_utils import *
+from utils.session_utils import *
+from utils.feedback_utils import *
+from utils.form_utils import *
+from utils.quiz_logic import Quiz, User
+
+init_session(quiz = Quiz.from_csv(&quot;data/quiz_questions.csv&quot;))
+
+st.title(&quot;Test your knowledge&quot;)
+
+# Display feedback if present
+if st.session_state.feedback is not None:
+    msg_type, msg_content = st.session_state.feedback
+    if msg_type == &quot;success&quot;:
+        st.success(msg_content)
+    else:
+        st.error(msg_content)
+    st.session_state.feedback = None
+
+        msg_type, msg_content = give_feedback(st.session_state.quiz, st.session_state.user, answer)
+</div></code></pre>
+<p>import streamlit as st
+import csv
+from utils.export_utils import *
+from utils.session_utils import *
+from utils.feedback_utils import *
+from utils.form_utils import *
+import pandas as pd
+from utils.quiz_logic import Quiz, User</p>
+<h1 id="initialize-session-state-variables-and-load-quiz-questions-from-csv">Initialize session state variables and load quiz questions from CSV</h1>
+<p>init_session(quiz = Quiz.from_csv(&quot;data/quiz_questions.csv&quot;))</p>
+<pre><code>Create a Quiz instance from a CSV file of questions.
+</code></pre>
+<h1 id="show-branding-image-in-sidebar">Show branding image in sidebar</h1>
+<p>st.sidebar.image(&quot;images/duck_guidance.png&quot;)</p>
+<h1 id="display-feedback-message-if-present-in-session-state">Display feedback message if present in session state</h1>
+<p>if st.session_state.feedback is not None:
+msg_type, msg_content = st.session_state.feedback
+# Show success or error message based on feedback type
+if msg_type == &quot;success&quot;:
+st.success(msg_content)
+else:
+st.error(msg_content)
+# Clear feedback after displaying so it doesn't persist
+st.session_state.feedback = None</p>
+<h1 id="if-user-details-are-not-yet-provided-show-the-user-form">If user details are not yet provided, show the user form</h1>
+<p>if st.session_state.user is None:
+user_form()</p>
+<h1 id="if-quiz-is-ongoing-display-the-current-question-and-answer-options">If quiz is ongoing, display the current question and answer options</h1>
+<p>elif st.session_state.quiz.current_question() is not None:
+q = st.session_state.quiz.current_question()
+st.subheader(q.text)
+# Show possible answers as radio buttons
+answer = st.radio(&quot;Choose an answer:&quot;, q.possible_answers)
+if st.button(&quot;Submit&quot;):
+# Evaluate answer and update feedback in session state
+msg_type, msg_content = give_feedback(st.session_state.quiz, st.session_state.user, answer)
+st.session_state.feedback = (msg_type, msg_content)
+# Rerun to update UI and move to next question
+st.rerun()
+# Show current score after each question
+st.write(f&quot;Score: {st.session_state.user.score}&quot;)</p>
+<h1 id="if-quiz-is-finished-display-results-and-export-options">If quiz is finished, display results and export options</h1>
+<p>else:
+st.subheader(&quot;Quiz Finished!&quot;)
+total = len(st.session_state.quiz.questions)
+score = st.session_state.user.score
+percent = (score / total) * 100 if total &gt; 0 else 0
+st.write(f&quot;Your final score is {score}/{total}&quot;)
+# Show pass/fail message based on score percentage
+if percent &gt;= 80:
+st.success(f&quot;Congratulations! You passed the quiz with {percent:.0f}% correct.&quot;)
+else:
+st.error(f&quot;You did not pass. You scored {percent:.0f}%. Try again to improve your score!&quot;)
+# Save user score to CSV only once
+if not st.session_state.score_saved:
+write_user_scores(st.session_state.user, &quot;user_scores.csv&quot;)
+st.session_state.score_saved = True
+# Prepare CSV data for download
+csv_data = export_results(st.session_state.user)
+st.download_button(
+label = &quot;Export my answers&quot;,
+data = csv_data,
+file_name = &quot;COP_quiz_answers.csv&quot;,
+mime = &quot;text/csv&quot;
+)
+# Allow user to restart the quiz by clearing session state
+if st.button(&quot;Restart Quiz&quot;):
+del st.session_state.quiz
+del st.session_state.user
+st.rerun()</p>
+<pre class="hljs"><code><div>    Args:
+        csv_path (str): Path to the CSV file.
+    Returns:
+        Quiz: An instance of the Quiz class.
+    &quot;&quot;&quot;
+    try:
+        df = pd.read_csv(csv_path)
+        questions = []
+        for q_text in df[&quot;question&quot;].unique():
+            q_df = df[df[&quot;question&quot;] == q_text]
+            possible_answers = list(q_df[&quot;possible_answers&quot;])
+            correct_answer = q_df[q_df[&quot;answer_indicator&quot;] == &quot;c&quot;][&quot;possible_answers&quot;].iloc[0]
+            aspect = q_df[&quot;aspect&quot;].iloc[0]
+            questions.append(Question(q_text, possible_answers, correct_answer, aspect))
+        return cls(questions)
+    except Exception as e:
+        raise RuntimeError(f&quot;Failed to load quiz CSV: {e}&quot;)
+</div></code></pre>
+<p>If an error occurs (such as a missing file or malformed data), a <code>RuntimeError</code> is raised with a descriptive message, ensuring the issue can be reported to the user and debugged effectively.</p>
+<p>This script manages the user journey: collecting user details, presenting questions, handling answers, providing feedback, and exporting results.</p>
+<h3 id="core-classes-and-logic">Core Classes and Logic</h3>
+<h4 id="question-class"><code>Question</code> Class</h4>
+<p>Defines a quiz question, possible answers, the correct answer, and its aspect/category.</p>
+<pre class="hljs"><code><div>class Question:
+    &quot;&quot;&quot;
+    Represents a quiz question with possible answers and the correct answer.
+    Attributes:
+        text (str): The question text.
+        possible_answers (list): List of possible answers.
+        correct_answer (str): The correct answer.
+        aspect (str): The aspect/category of the question.
+    &quot;&quot;&quot;
+    def __init__(self, text, possible_answers, correct_answer, aspect):
+        # Question text
+        self.text = text
+        # List of possible answers
+        self.possible_answers = possible_answers
+        # The correct answer
+        self.correct_answer = correct_answer
+        # Category/aspect of the question
+        self.aspect = aspect
+
+    def is_correct(self, answer):
+        # Compare provided answer to correct answer
+        return answer == self.correct_answer
+</div></code></pre>
+<h4 id="user-class"><code>User</code> Class</h4>
+<p>Tracks user details, score, and answers.</p>
+<pre class="hljs"><code><div>class User:
+    &quot;&quot;&quot;
+    Represents a user taking the quiz, tracking their details and answers.
+    Attributes:
+        first_name (str): User's first name.
+        last_name (str): User's last name.
+        email (str): User's email address.
+        score (int): User's current score.
+        answers (list): List of answer records.
+    &quot;&quot;&quot;
+    def __init__(self, first_name, last_name, email):
+        # User's first name
+        self.first_name = first_name
+        # User's last name
+        self.last_name = last_name
+        # User's email address
+        self.email = email
+        # User's quiz score
+        self.score = 0
+        # List of user's answers
+        self.answers = []
+
+    def record_answer(self, question, answer, correct):
+        # Store answer record (question object, answer, correctness)
+        self.answers.append({&quot;question&quot;: question, &quot;answer&quot;: answer, &quot;correct&quot;: correct})
+        # Increment score if answer was correct
+        if correct:
+            self.score += 1
+</div></code></pre>
+<h4 id="quiz-class"><code>Quiz</code> Class</h4>
+<p>Manages the list of questions, current state, and answer logic.</p>
+<pre class="hljs"><code><div>class Quiz:
+    &quot;&quot;&quot;
+    Manages the quiz, including questions, current state, and answer logic.
+    &quot;&quot;&quot;
+    def __init__(self, questions):
+        # List of Question objects
+        self.questions = questions
+        # Index of current question
+        self.current_index = 0
+
+    @classmethod
+    def from_csv(cls, csv_path):
+        # Loads questions from a CSV file (see code for details)
+        ...
+
+    def current_question(self):
+        # Return current question if quiz not finished
+        if self.current_index &lt; len(self.questions):
+            return self.questions[self.current_index]
+        else:
+            return None
+
+    def answer_current(self, answer):
+        # Check if answer is correct
+        question = self.current_question()
+        correct = question.is_correct(answer)
+        # Move to next question
+        self.current_index += 1
+        return correct, question
+</div></code></pre>
+<h3 id="code-documentation-and-docstrings">Code Documentation and Docstrings</h3>
+<p>Docstrings are used throughout the codebase to document the purpose, parameters, and return values of classes and functions. This helps both users and developers understand how to use and maintain the code.</p>
+<h4 id="example-docstring-for-a-class-method">Example: Docstring for a Class Method</h4>
+<p>Below is an example of a docstring from the <code>Question</code> class:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Question</span>:</span>
+    <span class="hljs-string">"""
+    Represents a quiz question with possible answers and the correct answer.
+    Attributes:
+        text (str): The question text.
+        possible_answers (list): List of possible answers.
+        correct_answer (str): The correct answer.
+        aspect (str): The aspect/category of the question.
+    """</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, text, possible_answers, correct_answer, aspect)</span>:</span>
+        <span class="hljs-string">"""
+        Initialize a Question instance.
+        Args:
+            text (str): The question text.
+            possible_answers (list): List of possible answers.
+            correct_answer (str): The correct answer.
+            aspect (str): The aspect/category of the question.
+        """</span>
+        self.text = text
+        self.possible_answers = possible_answers
+        self.correct_answer = correct_answer
+        self.aspect = aspect
+</div></code></pre>
+<p><strong>How to Use Docstrings:</strong></p>
+<ul>
+<li>Docstrings appear as the first statement in a class, method, or function.</li>
+<li>They are used by documentation tools and IDEs to provide context and help.</li>
+<li>You can view docstrings in Python using the built-in <code>help()</code> function, e.g., <code>help(Question)</code>.</li>
+<li>Well-written docstrings make the codebase easier to understand, maintain, and extend.</li>
+</ul>
+<h3 id="utility-modules">Utility Modules</h3>
+<ul>
+<li><code>form_utils.py</code>: Handles user input forms and validation (e.g., name and email checks).</li>
+<li><code>feedback_utils.py</code>: Provides feedback after each answer.</li>
+<li><code>export_utils.py</code>: Handles saving user scores and exporting answers to CSV.</li>
+<li><code>session_utils.py</code>: Manages Streamlit session state variables.</li>
+</ul>
+<h4 id="example-user-form-validation">Example: User Form Validation</h4>
+<pre class="hljs"><code><div>def validate_name(name):
+    # Name must be at least 2 characters
+    if len(name) &lt;= 1:
+        return False
+    # Name must be alphanumeric (no special chars)
+    if not name.isalnum():
+        return False
+    return True
+
+def validate_email(email):
+    # Regex for basic email validation
+    regex = r&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}&quot;
+    if re.fullmatch(regex, email):
+        return True
+    return False
+</div></code></pre>
+<h3 id="data-storage">Data Storage</h3>
+<ul>
+<li>Quiz questions are stored in <code>data/quiz_questions.csv</code>.</li>
+<li>User scores are appended to <code>user_scores.csv</code>.</li>
+</ul>
+<h3 id="testing">Testing</h3>
+<ul>
+<li>The <code>tests/</code> directory contains unit tests for core logic, e.g., <code>test_quiz_logic.py</code> and <code>test_export_utils.py</code>.</li>
+</ul>
+<p>This modular structure ensures the application is maintainable, testable, and easy to extend.</p>
+<h2 id="testing-section">Testing Section</h2>
+<h3 id="1-testing-strategy-and-methodology">1. Testing Strategy and Methodology</h3>
+<p>A systematic approach was taken to ensure the reliability and correctness of the application. The following methods were used:</p>
+<ul>
+<li>
+<p><strong>Automated Unit Testing:</strong></p>
+<ul>
+<li>Core logic modules (such as quiz logic, export utilities, and session management) are covered by automated unit tests using <code>pytest</code>.</li>
+<li>Tests are located in the <code>tests/</code> directory and are run automatically in CI (Continuous Integration) using GitHub Actions.</li>
+<li>Screenshots below show examples of tests passing locally and on GitHub through CI and GitHub Actions.</li>
+<li>Automated tests ensure that individual functions and classes behave as expected and help prevent regressions.</li>
+</ul>
+<p><img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/unit_test_results.png" alt="Unit tests passing locally">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/ci_test_result.png" alt="Tests passing on GitHub"></p>
+</li>
+<li>
+<p><strong>Manual Testing:</strong></p>
+<ul>
+<li>The application was manually tested through the Streamlit GUI to verify the user journey, input validation, feedback, and data export features.</li>
+<li>Manual tests focused on usability, error handling, and the overall user experience.</li>
+</ul>
+</li>
+</ul>
+<p>This combination of automated and manual testing provides both code-level assurance and real-world validation.</p>
+<h3 id="2-outcomes-of-application-testing">2. Outcomes of Application Testing</h3>
+<h4 id="21-manual-test-outcomes">2.1. Manual Test Outcomes</h4>
+<table>
+<thead>
+<tr>
+<th>Test Case Description</th>
+<th>Steps Taken</th>
+<th>Expected Result</th>
+<th>Actual Result</th>
+<th>Pass/Fail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start quiz and submit valid user details</td>
+<td>Enter valid name and email, start quiz</td>
+<td>Quiz starts</td>
+<td>Quiz starts</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Submit invalid email</td>
+<td>Enter invalid email, submit form</td>
+<td>Warning shown, cannot proceed</td>
+<td>Warning shown</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Answer quiz questions</td>
+<td>Select answers, submit each</td>
+<td>Feedback after each answer</td>
+<td>Feedback shown</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Complete quiz and export answers</td>
+<td>Finish quiz, click export</td>
+<td>CSV download prompt appears</td>
+<td>Prompt appears</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Restart quiz</td>
+<td>Click restart after finishing</td>
+<td>Quiz restarts, form resets</td>
+<td>Works as expected</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Submit empty form</td>
+<td>Leave fields blank, submit</td>
+<td>Warning shown</td>
+<td>Warning shown</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Handle invalid input gracefully</td>
+<td>Enter special characters in name/email</td>
+<td>Warning shown</td>
+<td>Warning shown</td>
+<td>Pass</td>
+</tr>
+</tbody>
+</table>
+<p>Screenshots below show examples of some of the manual testing carried out in the table above.</p>
+<p><img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/invalid_email_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/incomplete_details_app.png" alt="">
+<img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/invalid_name_app.png" alt=""></p>
+<h4 id="22-unit-testing-outcome">2.2. Unit Testing Outcome</h4>
+<p>Automated unit tests were run using <code>pytest</code>. Below is an example screenshot of the tests running and passing:</p>
+<p><img src="file:///c:/Users/m1zay/repos/l6-ifcs-sum2/images/unit_test_results.png" alt="Unit tests passing locally"></p>
+<ul>
+<li>All core logic tests (quiz logic, export, session utils) passed successfully.</li>
+<li>Tests are re-run automatically on every code push via GitHub Actions CI.</li>
+</ul>
+<p>If any test fails, details are shown in the CI logs and locally in the terminal, allowing for quick identification and resolution of issues.</p>
+<h2 id="documentation-section">Documentation Section</h2>
+<h3 id="user-documentation">User Documentation</h3>
+<h4 id="how-to-use-the-quiz-application">How to Use the Quiz Application</h4>
+<ol>
+<li><strong>Access the Application:</strong>
+<ul>
+<li>Open the application in your web browser (typically via a provided Streamlit link or by running locally).</li>
+</ul>
+</li>
+<li><strong>Info Page:</strong>
+<ul>
+<li>Read the user guide, information about the Code of Practice, and FAQs for an overview of the quiz and navigation instructions.</li>
+</ul>
+</li>
+<li><strong>Start the Quiz:</strong>
+<ul>
+<li>Go to the &quot;Test your knowledge&quot; page.</li>
+<li>Enter your first name, last name, and email address in the form. All fields are required and validated.</li>
+<li>Click &quot;Start Quiz&quot; to begin.</li>
+</ul>
+</li>
+<li><strong>Answer Questions:</strong>
+<ul>
+<li>For each question, select your answer and click &quot;Submit&quot;.</li>
+<li>Immediate feedback will be shown after each answer.</li>
+<li>Your current score is displayed throughout the quiz.</li>
+</ul>
+</li>
+<li><strong>Finish and Export:</strong>
+<ul>
+<li>At the end, your final score is shown.</li>
+<li>You can download your answers as a CSV file for your records.</li>
+<li>Click &quot;Restart Quiz&quot; to retake the quiz if desired.</li>
+</ul>
+</li>
+</ol>
+<h4 id="troubleshooting">Troubleshooting</h4>
+<ul>
+<li>If you see a warning or error, check that all form fields are filled in correctly.</li>
+<li>If the application does not load, ensure you have a stable internet connection or contact your IT support.</li>
+</ul>
+<h3 id="technical-documentation">Technical Documentation</h3>
+<h4 id="running-the-application-locally">Running the Application Locally</h4>
+<ol>
+<li><strong>Clone the Repository:</strong><pre class="hljs"><code><div>git <span class="hljs-built_in">clone</span> &lt;repository-url&gt;
+<span class="hljs-built_in">cd</span> l6-ifcs-sum2
+</div></code></pre>
+</li>
+<li><strong>Install Dependencies:</strong><pre class="hljs"><code><div>pip install -r requirements.txt
+</div></code></pre>
+</li>
+<li><strong>Start the Application:</strong><pre class="hljs"><code><div> streamlit run app/pages/About.py
+ <span class="hljs-comment"># Or run any page directly, e.g.:</span>
+ streamlit run app/pages/Contact Us.py
+</div></code></pre>
+<ul>
+<li>Use the Streamlit sidebar to navigate between pages.</li>
+</ul>
+</li>
+</ol>
+<h4 id="running-tests-locally">Running Tests Locally</h4>
+<ol>
+<li><strong>Install Test Dependencies:</strong>
+<ul>
+<li>Ensure <code>pytest</code> is installed (included in requirements or install via <code>pip install pytest</code>).</li>
+</ul>
+</li>
+<li><strong>Run All Tests:</strong><pre class="hljs"><code><div>pytest
+</div></code></pre>
+<ul>
+<li>Test files are located in the <code>tests/</code> directory.</li>
+<li>Test results will be displayed in the terminal.</li>
+</ul>
+</li>
+</ol>
+<h4 id="code-structure-overview">Code Structure Overview</h4>
+<ul>
+<li><code>app/pages/</code>: Streamlit page scripts (Info, Test your knowledge, Contact Us)</li>
+<li><code>app/utils/</code>: Core logic modules (quiz logic, forms, feedback, export, session state)</li>
+<li><code>data/</code>: Quiz questions CSV file</li>
+<li><code>tests/</code>: Unit tests for logic and utilities</li>
+<li><code>user_scores.csv</code>: Stores quiz results</li>
+<li><code>requirements.txt</code>: Lists the Python dependencies required to run the application (see below for details).</li>
+</ul>
+<h4 id="about-requirementstxt">About requirements.txt</h4>
+<p>The <code>requirements.txt</code> file specifies the Python packages needed to run this project, including for both application use and testing. It ensures that all users and environments have the correct dependencies installed. The contents of <code>requirements.txt</code> are:</p>
+<pre class="hljs"><code><div>pandas
+streamlit
+pytest
+</div></code></pre>
+<ul>
+<li><code>pandas</code> is used for handling CSV files and data manipulation.</li>
+<li><code>streamlit</code> is the framework for building the web application interface.</li>
+<li><code>pytest</code> is included for running the automated tests in the <code>tests/</code> directory.</li>
+</ul>
+<p><strong>How to use requirements.txt:</strong></p>
+<p>To install all required dependencies, run the following command in your terminal from the project root directory:</p>
+<pre class="hljs"><code><div>pip install -r requirements.txt
+</div></code></pre>
+<p>This will ensure that <code>pandas</code>, <code>streamlit</code>, and <code>pytest</code> are installed in your Python environment before running the application or tests.</p>
+<h4 id="key-code-components">Key Code Components</h4>
+<ul>
+<li><strong>Quiz Logic:</strong> Handles question loading, answer checking, and quiz progression (<code>quiz_logic.py</code>).</li>
+<li><strong>User Management:</strong> Collects and validates user details (<code>form_utils.py</code>).</li>
+<li><strong>Feedback:</strong> Provides immediate feedback after each answer (<code>feedback_utils.py</code>).</li>
+<li><strong>Export:</strong> Saves and exports user results (<code>export_utils.py</code>).</li>
+<li><strong>Session State:</strong> Manages user and quiz state across the app (<code>session_utils.py</code>).</li>
+</ul>
+<p>For further technical details, see the comments and docstrings within each module.</p>
+<h2 id="evaluation-section">Evaluation Section</h2>
+<h3 id="what-went-well">What Went Well</h3>
+<ul>
+<li>Learning about Streamlit was valuable as it allowed me to explore a different framework for object-oriented programming. The closest thing I have experience with that is similar is RShiny apps.</li>
+<li>The modular structure of the codebase, with clear separation of concerns (logic, forms, feedback, export, and session management), made the project easier to maintain and extend.</li>
+<li>Leveraging <a href="https://pandas.pydata.org/">pandas</a> for CSV handling streamlined data operations, and the use of Python’s standard library kept dependencies minimal.</li>
+<li>The quiz application met its core objectives as a Minimum Viable Product, providing a user-friendly interface, immediate feedback, and exportable results.</li>
+<li>Unit tests were implemented for key logic components, which helped ensure reliability and catch regressions early.</li>
+</ul>
+<h3 id="learning-points-and-challenges">Learning Points and Challenges</h3>
+<ul>
+<li>
+<p>Even though there are out-of-the-box methods for checking email addresses in Python, I chose to implement a custom validation function in the code. This allowed me to develop my experience with writing and testing Python code, especially for input validation logic.</p>
+</li>
+<li>
+<p>Decreasing the load time for the quiz page was a challenge. Initially, loading quiz data from CSV on every rerun caused noticeable delays. Refactoring the code to load questions once per session and store them in Streamlit's session state greatly improved performance and user experience.</p>
+</li>
+<li>
+<p>Managing session states was challenging, especially when adding code for conditional actions in the quiz, such as moving to the next question, showing results, and restarting the quiz.</p>
+</li>
+<li>
+<p>Designing tests for classes and functions was difficult, particularly when functions/classes are dependent on each other. For example, in the repo:</p>
+</li>
+<li>
+<p>I encountered an issue where tests run locally were passing, but the same tests kept failing on GitHub Actions CI. After investigating, I discovered the problem was due to missing dependencies in the <code>requirements.txt</code> file (specifically, <code>streamlit</code> was not included). Once I added all necessary dependencies to <code>requirements.txt</code>, the CI tests passed successfully. This highlighted the importance of keeping requirements up to date for both local and CI environments.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_user_record_answer</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-string">"""
+    Test that User.record_answer correctly records answers and updates the score.
+    """</span>
+    user_info = User(
+        first_name = <span class="hljs-string">"John"</span>,
+        last_name = <span class="hljs-string">"Doe"</span>,
+        email = <span class="hljs-string">"john.doe@gmail.com"</span>
+    )
+    q = Question(
+        text=<span class="hljs-string">"What is 1+1?"</span>,
+        possible_answers=[<span class="hljs-string">"1"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>],
+        correct_answer=<span class="hljs-string">"2"</span>,
+        aspect=<span class="hljs-string">"maths"</span>
+    )
+    user_info.record_answer(q,<span class="hljs-string">"2"</span>,<span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">assert</span> user_info.score == <span class="hljs-number">1</span>
+    <span class="hljs-keyword">assert</span> user_info.answers[<span class="hljs-number">-1</span>][<span class="hljs-string">"answer"</span>]==<span class="hljs-string">"2"</span>
+    <span class="hljs-keyword">assert</span> user_info.answers[<span class="hljs-number">-1</span>][<span class="hljs-string">"correct"</span>] <span class="hljs-keyword">is</span> <span class="hljs-literal">True</span>
+</div></code></pre>
+<ul>
+<li>
+<p>Usually, I start with functions as I can see clearly what will be reused in a process. However, here I had to start with code and then refactor it as I got more familiar with Streamlit and classes. It was a learning curve.</p>
+</li>
+<li>
+<p>I learned that including a feature for users to record their division or team requires clear requirements and departmental agreement. Ongoing discussions about how to segment quiz collections meant this functionality was postponed. This highlighted the importance of aligning technical features with organizational needs before implementation.</p>
+</li>
+</ul>
+<h3 id="changed-from-the-prototype">Changed from the Prototype</h3>
+<ul>
+<li>I changed the design so that Fredrick (the Unit's duck mascot) is available throughout the pages, which encourages brand recognition.</li>
+<li>Instead of having multiple questions on a page, I designed it to be question by question while providing feedback to make the quiz more engaging for users. Other benefits include:
+<ul>
+<li>Users receive immediate feedback, which supports learning and retention.</li>
+<li>The quiz is less overwhelming and easier to navigate, especially for non-technical users.</li>
+</ul>
+</li>
+</ul>
+<h3 id="what-could-have-been-improved">What Could Have Been Improved</h3>
+<p>While the MVP approach allowed for timely delivery, there are several areas where this project could be improved:</p>
+<ul>
+<li><strong>User Interface &amp; Accessibility:</strong> The UI is functional but could be enhanced with more advanced design elements and accessibility features. Incorporating feedback from end users and using more Streamlit widgets or custom styling would make the app more engaging and inclusive.</li>
+<li><strong>Session State Management:</strong> Managing session state in Streamlit was sometimes tricky, especially for conditional logic and navigation. More robust patterns or use of Streamlit's newer features could simplify this.</li>
+<li><strong>Error Handling:</strong> Although exception handling is present, it could be expanded to cover more edge cases, such as malformed CSV files, missing data, or unexpected user input. More user-friendly error messages and recovery options would improve the experience.</li>
+<li><strong>Testing Coverage:</strong> While unit tests exist for core logic, tests for GUI interactions and integration between modules are limited. Expanding test coverage to include these areas would help catch more issues and ensure reliability.</li>
+<li><strong>Documentation:</strong> Although docstrings and comments are present, more comprehensive technical documentation and user guides would further support onboarding and maintenance, especially for new contributors.</li>
+<li><strong>Data Storage:</strong> Currently, all data is stored in local CSV files. For larger-scale or multi-user scenarios, implementing persistent user authentication or a database backend (such as <a href="https://www.sqlite.org/index.html">SQLite</a>) would improve scalability and data integrity.</li>
+<li><strong>Development Workflow:</strong> The process involved refactoring code as familiarity with Streamlit and object-oriented design grew. Starting with clearer architecture or planning could reduce the need for later refactoring.</li>
+</ul>
+
+</body>
+</html>

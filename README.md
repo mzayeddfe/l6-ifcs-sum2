@@ -74,6 +74,9 @@ The application has been developed using Streamlit in Python. The repository inc
 - The system shall store quiz results in a CSV file.
 - The system shall allow administrators to export results.
 
+### Design/Development Note
+Capturing the user's divisional area was included in the initial prototype, but is not present in the current app. This is because there are ongoing discussions within the department about how best to segment quiz collections and results. The design remains flexible to allow for future inclusion of this feature once requirements are finalized.
+
 ### Non-Functional Requirements
 
 - The application shall be usable by non-technical staff.
@@ -659,6 +662,7 @@ For further technical details, see the comments and docstrings within each modul
 
 ### What Went Well
 
+
 - Learning about Streamlit was valuable as it allowed me to explore a different framework for object-oriented programming. The closest thing I have experience with that is similar is RShiny apps.
 - The modular structure of the codebase, with clear separation of concerns (logic, forms, feedback, export, and session management), made the project easier to maintain and extend.
 - Leveraging [pandas](https://pandas.pydata.org/) for CSV handling streamlined data operations, and the use of Python’s standard library kept dependencies minimal.
@@ -699,6 +703,8 @@ def test_user_record_answer():
     assert user_info.answers[-1]["correct"] is True
 ```
 - Usually, I start with functions as I can see clearly what will be reused in a process. However, here I had to start with code and then refactor it as I got more familiar with Streamlit and classes. It was a learning curve.
+
+- I learned that including a feature for users to record their division or team requires clear requirements and departmental agreement. Ongoing discussions about how to segment quiz collections meant this functionality was postponed. This highlighted the importance of aligning technical features with organizational needs before implementation.
 
 ### Changed from the Prototype
 
