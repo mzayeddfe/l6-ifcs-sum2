@@ -16,14 +16,6 @@ The application has been developed using Streamlit in Python. The repository inc
 
 ### GUI Design
 - The application uses Streamlit to provide a web-based graphical user interface (GUI).
-- The user journey is as follows:
-    1. The user lands on the Info page, which provides a user guide, information about the Code of Practice, and FAQs.
-    2. The user accesses the "Test your knowledge" page to start the quiz.
-  3. A form collects the user's first name, last name, and email, with validation for each field.
-  4. The quiz presents one question at a time, with multiple-choice answers using radio buttons.
-  5. Immediate feedback is given after each answer (success or error message).
-  6. At the end, the user sees their score and can export their answers as a CSV file or restart the quiz.
-- The design is simple and accessible, suitable for non-technical users.
 - The application prototype was made on Figma. Use this link to see the [Figma prototype](https://www.figma.com/design/Emu6EbjRNC1RxjaPPBbMlO/ifc-sum2?node-id=4330-1381&t=ZigtyyaSCmRnOK08-1).
 - If the link above does not work, please see the screenshots below for the prototype.
 
@@ -33,6 +25,23 @@ The application has been developed using Streamlit in Python. The repository inc
 ![](images/pass.png)
 ![](images/fail.png)
 ![](images/contact_us.png)
+
+- The user journey is as follows:
+    1. The user lands on the Info page, which provides a user guide, information about the Code of Practice, and FAQs.
+    2. The user accesses the "Test your knowledge" page to start the quiz.
+  3. A form collects the user's first name, last name, and email, with validation for each field.
+  4. The quiz presents one question at a time, with multiple-choice answers using radio buttons.
+  5. Immediate feedback is given after each answer (success or error message).
+  6. At the end, the user sees their score and can export their answers as a CSV file or restart the quiz.
+- Screenshots showing the user journey is shown below.
+- The design is simple and accessible, suitable for non-technical users.
+![](images/about_page_app.png)
+![](images/fill_details_app.png)
+![](images/question_app.png)
+![](images/incorrect_app.png)
+![](images/correct_answer_app.png)
+![](images/final_quiz_page_app.png)
+![](images/contact_us_app.png)
 
 
 ### Functional Requirements
@@ -391,6 +400,12 @@ This combination of automated and manual testing provides both code-level assura
 | Restart quiz                                         | Click restart after finishing                    | Quiz restarts, form resets     | Works as expected| Pass      |
 | Submit empty form                                    | Leave fields blank, submit                       | Warning shown                  | Warning shown   | Pass      |
 | Handle invalid input gracefully                      | Enter special characters in name/email            | Warning shown                  | Warning shown   | Pass      |
+
+Screenshots below show examples of some of the manual testing carried out in the table above.
+
+![](images/invalid_email_app.png)
+![](images/incomplete_details_app.png)
+![](images/invalid_name_app.png)
 
 #### 2.2. Unit Testing Outcome
 
