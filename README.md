@@ -58,6 +58,10 @@ The application has been developed using Streamlit in Python. The repository inc
   - pandas (for CSV/question handling)
   - streamlit (for UI and session state)
   - csv, io, re (standard library for file and input handling)
+- **Environment**:
+  - The following were components of the environment this application was developed and tested on:
+        - Python Version Used: 3.13.7  
+        - OS: Windows 11
 - **Tools:**
   - Figma for prototyping
   - pytest (for testing)
@@ -169,7 +173,49 @@ else:
         del st.session_state.quiz
         del st.session_state.user
         st.rerun()
+
 ```
+
+### Exception Handling
+
+Exception handling is implemented throughout the application to ensure robust and user-friendly error management:
+
+- **Quiz Loading:** When loading quiz questions from the CSV file, errors such as missing files or malformed data are caught. If an error occurs, a clear message is displayed to the user in the Streamlit interface, and the quiz will not proceed with invalid data.
+- **Answer Processing:** When processing answers, the app checks for unexpected states (such as missing questions) and reports errors to the user if they occur, preventing crashes.
+- **Exporting and Saving:** When exporting results or saving user scores, file I/O errors are caught and reported using Streamlit's error messaging, so users are informed if their data could not be saved or exported.
+- **Input Validation:** All user input (names, emails) is validated before processing. Invalid input is rejected with a clear message, and the user is prompted to correct it.
+- **General Feedback:** Any unexpected errors encountered during quiz progression or feedback are caught and displayed to the user, ensuring the app fails gracefully and provides actionable information.
+
+
+#### Example: Exception Handling in Quiz Loading
+
+Below is a code snippet from the `Quiz` class showing how exceptions are handled when loading quiz questions from a CSV file:
+
+```python
+@classmethod
+def from_csv(cls, csv_path):
+    """
+    Create a Quiz instance from a CSV file of questions.
+    Args:
+        csv_path (str): Path to the CSV file.
+    Returns:
+        Quiz: An instance of the Quiz class.
+    """
+    try:
+        df = pd.read_csv(csv_path)
+        questions = []
+        for q_text in df["question"].unique():
+            q_df = df[df["question"] == q_text]
+            possible_answers = list(q_df["possible_answers"])
+            correct_answer = q_df[q_df["answer_indicator"] == "c"]["possible_answers"].iloc[0]
+            aspect = q_df["aspect"].iloc[0]
+            questions.append(Question(q_text, possible_answers, correct_answer, aspect))
+        return cls(questions)
+    except Exception as e:
+        raise RuntimeError(f"Failed to load quiz CSV: {e}")
+```
+
+If an error occurs (such as a missing file or malformed data), a `RuntimeError` is raised with a descriptive message, ensuring the issue can be reported to the user and debugged effectively.
 
 This script manages the user journey: collecting user details, presenting questions, handling answers, providing feedback, and exporting results.
 
@@ -234,6 +280,46 @@ class Quiz:
         self.current_index += 1
         return correct, question
 ```
+
+
+### Code Documentation and Docstrings
+
+Docstrings are used throughout the codebase to document the purpose, parameters, and return values of classes and functions. This helps both users and developers understand how to use and maintain the code.
+
+#### Example: Docstring for a Class Method
+
+Below is an example of a docstring from the `Question` class:
+
+```python
+class Question:
+    """
+    Represents a quiz question with possible answers and the correct answer.
+    Attributes:
+        text (str): The question text.
+        possible_answers (list): List of possible answers.
+        correct_answer (str): The correct answer.
+        aspect (str): The aspect/category of the question.
+    """
+    def __init__(self, text, possible_answers, correct_answer, aspect):
+        """
+        Initialize a Question instance.
+        Args:
+            text (str): The question text.
+            possible_answers (list): List of possible answers.
+            correct_answer (str): The correct answer.
+            aspect (str): The aspect/category of the question.
+        """
+        self.text = text
+        self.possible_answers = possible_answers
+        self.correct_answer = correct_answer
+        self.aspect = aspect
+```
+
+**How to Use Docstrings:**
+- Docstrings appear as the first statement in a class, method, or function.
+- They are used by documentation tools and IDEs to provide context and help.
+- You can view docstrings in Python using the built-in `help()` function, e.g., `help(Question)`.
+- Well-written docstrings make the codebase easier to understand, maintain, and extend.
 
 ### Utility Modules
 
