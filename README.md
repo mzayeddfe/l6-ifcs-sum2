@@ -106,7 +106,7 @@ Quiz
 ```
 
 - **Modules:**
-    - `app/pages/`: Streamlit page scripts (Info, Test your knowledge)
+    - `app/pages/`: Streamlit page scripts (Info, Test your knowledge, Contact Us)
   - `app/utils/`: Logic for quiz, forms, feedback, export, and session state
   - `data/`: Quiz questions CSV
   - `tests/`: Unit tests for logic and utilities
@@ -117,7 +117,11 @@ This section explains the main parts of the application, with code blocks and de
 
 ### Main Application Flow
 
-The application is structured as a Streamlit app with multiple pages. The main quiz logic is in `app/pages/Test your knowledge.py`:
+The application is structured as a Streamlit app with multiple pages:
+- `About.py`: User guide, Code of Practice information, FAQs
+- `Test your knowledge.py`: Main quiz logic
+- `Contact Us.py`: Contact details and feedback form
+The main quiz logic is in `app/pages/Test your knowledge.py`:
 
 ```
 import streamlit as st
@@ -439,7 +443,9 @@ If any test fails, details are shown in the CI logs and locally in the terminal,
    ```
 3. **Start the Application:**
    ```sh
-    streamlit run app/pages/Info.py
+    streamlit run app/pages/About.py
+    # Or run any page directly, e.g.:
+    streamlit run app/pages/Contact Us.py
    ```
    - Use the Streamlit sidebar to navigate between pages.
 
@@ -454,7 +460,7 @@ If any test fails, details are shown in the CI logs and locally in the terminal,
    - Test results will be displayed in the terminal.
 
 #### Code Structure Overview
-- `app/pages/`: Streamlit page scripts (Info, Test your knowledge)
+- `app/pages/`: Streamlit page scripts (Info, Test your knowledge, Contact Us)
 - `app/utils/`: Core logic modules (quiz logic, forms, feedback, export, session state)
 - `data/`: Quiz questions CSV file
 - `tests/`: Unit tests for logic and utilities
