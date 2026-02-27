@@ -24,7 +24,15 @@ The application has been developed using Streamlit in Python. The repository inc
   5. Immediate feedback is given after each answer (success or error message).
   6. At the end, the user sees their score and can export their answers as a CSV file or restart the quiz.
 - The design is simple and accessible, suitable for non-technical users.
-- INSERT FIGMA LINK
+- The application prototype was made on Figma. Use this link to see the [Figma prototype](https://www.figma.com/design/Emu6EbjRNC1RxjaPPBbMlO/ifc-sum2?node-id=4330-1381&t=ZigtyyaSCmRnOK08-1).
+- If the link above does not work, please see the screenshots below for the prototype.
+
+![](images/about_page.png)
+![](images/fill_details.png)
+![](images/questions.png)
+![](images/pass.png)
+![](images/fail.png)
+![](images/contact_us.png)
 
 
 ### Functional Requirements
@@ -268,7 +276,11 @@ A systematic approach was taken to ensure the reliability and correctness of the
 - **Automated Unit Testing:**
   - Core logic modules (such as quiz logic, export utilities, and session management) are covered by automated unit tests using `pytest`.
   - Tests are located in the `tests/` directory and are run automatically in CI (Continuous Integration) using GitHub Actions.
+  - Screenshots below show examples of tests passing locally and on GitHub through CI and GitHub Actions.
   - Automated tests ensure that individual functions and classes behave as expected and help prevent regressions.
+
+  ![Unit tests passing locally](images/unit_test_results.png)
+  ![Tests passing on GitHub](images/ci_test_result.png)
 
 - **Manual Testing:**
   - The application was manually tested through the Streamlit GUI to verify the user journey, input validation, feedback, and data export features.
@@ -381,4 +393,4 @@ The development of this project was a valuable learning experience, particularly
 
 ### What Could Have Been Improved
 
-While the MVP approach allowed for timely delivery, there were areas where the project could be enhanced. The user interface, though functional, could benefit from more advanced design and accessibility features—potentially by incorporating more feedback from end users or using prototyping tools like [Figma](https://www.figma.com/). Error handling, while present, could be made more robust, especially for edge cases such as malformed CSV files or unexpected user input. Automated testing coverage could be expanded to include the GUI and integration tests, not just unit tests. Additionally, implementing persistent user authentication or a database backend (such as [SQLite](https://www.sqlite.org/index.html)) could improve scalability and data integrity for future versions. Finally, more comprehensive documentation and user guides would further support onboarding and maintenance.
+While the MVP approach allowed for timely delivery, there were areas where the project could be enhanced. The user interface, though functional, could benefit from more advanced design and accessibility features—potentially by incorporating more feedback from end users. Error handling, while present, could be made more robust, especially for edge cases such as malformed CSV files or unexpected user input. Automated testing coverage could be expanded to include the GUI and integration tests, not just unit tests. Additionally, implementing persistent user authentication or a database backend (such as [SQLite](https://www.sqlite.org/index.html)) could improve scalability and data integrity for future versions. Finally, more comprehensive documentation and user guides would further support onboarding and maintenance.
