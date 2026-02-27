@@ -507,7 +507,9 @@ For further technical details, see the comments and docstrings within each modul
 - Unit tests were implemented for key logic components, which helped ensure reliability and catch regressions early.
 
 
-### Struggles
+### Learning Points and Challenges
+
+- Even though there are out-of-the-box methods for checking email addresses in Python, I chose to implement a custom validation function in the code. This allowed me to develop my experience with writing and testing Python code, especially for input validation logic.
 
 - Decreasing the load time for the quiz page was a challenge. Initially, loading quiz data from CSV on every rerun caused noticeable delays. Refactoring the code to load questions once per session and store them in Streamlit's session state greatly improved performance and user experience.
 
