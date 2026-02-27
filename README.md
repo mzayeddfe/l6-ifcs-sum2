@@ -1,5 +1,29 @@
 # l6-ifcs-sum2
+
 This is a repo for the second summative assignment for the intensive foundations of computer science module in the L6 data science apprenticeship.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Design Section](#design-section)
+    - [GUI Design](#gui-design)
+    - [Functional Requirements](#functional-requirements)
+    - [Non-Functional Requirements](#non-functional-requirements)
+    - [Tech Stack Outline](#tech-stack-outline)
+    - [Code Design Document](#code-design-document)
+- [Development Section](#development-section)
+    - [Performance Considerations](#performance-considerations)
+    - [Main Application Flow](#main-application-flow)
+    - [Exception Handling](#exception-handling)
+    - [Core Classes and Logic](#core-classes-and-logic)
+    - [Code Documentation and Docstrings](#code-documentation-and-docstrings)
+    - [Utility Modules](#utility-modules)
+    - [Data Storage](#data-storage)
+- [Testing Section](#testing-section)
+- [Documentation Section](#documentation-section)
+    - [User Documentation](#user-documentation)
+    - [Technical Documentation](#technical-documentation)
+- [Evaluation Section](#evaluation-section)
 
 ## Introduction
 
@@ -127,70 +151,6 @@ Quiz
 
 A challenge during development was decreasing the load time for the quiz page, which was initially caused by loading the quiz data from CSV on every rerun. To address this, the code was structured to load the quiz questions once at the start of the session and store them in Streamlit's session state. This ensures that data is only loaded from disk a single time per user session, significantly improving responsiveness and user experience.
 
-### Main Application Flow
-
-The application is structured as a Streamlit app with multiple pages:
-- `About.py`: User guide, Code of Practice information, FAQs
-- `Test your knowledge.py`: Main quiz logic
-- `Contact Us.py`: Contact details and feedback form
-The main quiz logic is in `app/pages/Test your knowledge.py`:
-
-```
-import streamlit as st
-from utils.export_utils import *
-from utils.session_utils import *
-from utils.feedback_utils import *
-from utils.form_utils import *
-from utils.quiz_logic import Quiz, User
-
-init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
-
-st.title("Test your knowledge")
-
-# Display feedback if present
-if st.session_state.feedback is not None:
-    msg_type, msg_content = st.session_state.feedback
-    if msg_type == "success":
-        st.success(msg_content)
-    else:
-        st.error(msg_content)
-    st.session_state.feedback = None
-
-# User details form
-if st.session_state.user is None:
-    user_form()
-
-# Quiz logic
-elif st.session_state.quiz.current_question() is not None:
-    q = st.session_state.quiz.current_question()
-    st.subheader(q.text)
-    answer = st.radio("Choose an answer:", q.possible_answers)
-    if st.button("Submit"):
-        msg_type, msg_content = give_feedback(st.session_state.quiz, st.session_state.user, answer)
-        st.session_state.feedback = (msg_type, msg_content)
-        st.rerun()
-    st.write(f"Score: {st.session_state.user.score}")
-
-# Quiz finished
-else:
-    st.subheader("Quiz Finished!")
-    st.write(f"Your final score is {st.session_state.user.score}/{len(st.session_state.quiz.questions)}")
-    if not st.session_state.score_saved:
-        write_user_scores(st.session_state.user, "user_scores.csv")
-    st.session_state.score_saved = True
-    csv_data = export_results(st.session_state.user)
-    st.download_button(
-        label = "Export my answers",
-        data = csv_data,
-        file_name = "COP_quiz_answers.csv",
-        mime = "text/csv"
-    )
-    if st.button("Restart Quiz"):
-        del st.session_state.quiz
-        del st.session_state.user
-        st.rerun()
-
-```
 
 ### Exception Handling
 
@@ -201,7 +161,6 @@ Exception handling is implemented throughout the application to ensure robust an
 - **Exporting and Saving:** When exporting results or saving user scores, file I/O errors are caught and reported using Streamlit's error messaging, so users are informed if their data could not be saved or exported.
 - **Input Validation:** All user input (names, emails) is validated before processing. Invalid input is rejected with a clear message, and the user is prompted to correct it.
 - **General Feedback:** Any unexpected errors encountered during quiz progression or feedback are caught and displayed to the user, ensuring the app fails gracefully and provides actionable information.
-
 
 #### Example: Exception Handling in Quiz Loading
 
@@ -235,37 +194,199 @@ If an error occurs (such as a missing file or malformed data), a `RuntimeError` 
 
 This script manages the user journey: collecting user details, presenting questions, handling answers, providing feedback, and exporting results.
 
+### Main Application Flow
+
+The application is structured as a Streamlit app with multiple pages:
+- `About.py`: User guide, Code of Practice information, FAQs
+- `Test your knowledge.py`: Main quiz logic
+- `Contact Us.py`: Contact details and feedback form
+The main quiz logic is in `app/pages/Test your knowledge.py`:
+
+```
+import streamlit as st
+from utils.export_utils import *
+from utils.session_utils import *
+from utils.feedback_utils import *
+from utils.form_utils import *
+from utils.quiz_logic import Quiz, User
+
+init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
+
+st.title("Test your knowledge")
+
+# Display feedback if present
+if st.session_state.feedback is not None:
+    msg_type, msg_content = st.session_state.feedback
+    if msg_type == "success":
+        st.success(msg_content)
+    else:
+        st.error(msg_content)
+    st.session_state.feedback = None
+
+        msg_type, msg_content = give_feedback(st.session_state.quiz, st.session_state.user, answer)
+```
+import streamlit as st
+import csv
+from utils.export_utils import *
+from utils.session_utils import *
+from utils.feedback_utils import *
+from utils.form_utils import *
+import pandas as pd
+from utils.quiz_logic import Quiz, User
+
+# Initialize session state variables and load quiz questions from CSV
+init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
+
+    Create a Quiz instance from a CSV file of questions.
+
+# Show branding image in sidebar
+st.sidebar.image("images/duck_guidance.png")
+
+# Display feedback message if present in session state
+if st.session_state.feedback is not None:
+    msg_type, msg_content = st.session_state.feedback
+    # Show success or error message based on feedback type
+    if msg_type == "success":
+        st.success(msg_content)
+    else:
+        st.error(msg_content)
+    # Clear feedback after displaying so it doesn't persist
+    st.session_state.feedback = None
+
+# If user details are not yet provided, show the user form
+if st.session_state.user is None:
+    user_form()
+
+# If quiz is ongoing, display the current question and answer options
+elif st.session_state.quiz.current_question() is not None:
+    q = st.session_state.quiz.current_question()
+    st.subheader(q.text)
+    # Show possible answers as radio buttons
+    answer = st.radio("Choose an answer:", q.possible_answers)
+    if st.button("Submit"):
+        # Evaluate answer and update feedback in session state
+        msg_type, msg_content = give_feedback(st.session_state.quiz, st.session_state.user, answer)
+        st.session_state.feedback = (msg_type, msg_content)
+        # Rerun to update UI and move to next question
+        st.rerun()
+    # Show current score after each question
+    st.write(f"Score: {st.session_state.user.score}")
+
+# If quiz is finished, display results and export options
+else:
+    st.subheader("Quiz Finished!")
+    total = len(st.session_state.quiz.questions)
+    score = st.session_state.user.score
+    percent = (score / total) * 100 if total > 0 else 0
+    st.write(f"Your final score is {score}/{total}")
+    # Show pass/fail message based on score percentage
+    if percent >= 80:
+        st.success(f"Congratulations! You passed the quiz with {percent:.0f}% correct.")
+    else:
+        st.error(f"You did not pass. You scored {percent:.0f}%. Try again to improve your score!")
+    # Save user score to CSV only once
+    if not st.session_state.score_saved:
+        write_user_scores(st.session_state.user, "user_scores.csv")
+    st.session_state.score_saved = True
+    # Prepare CSV data for download
+    csv_data = export_results(st.session_state.user)
+    st.download_button(
+        label = "Export my answers",
+        data = csv_data,
+        file_name = "COP_quiz_answers.csv",
+        mime = "text/csv"
+    )
+    # Allow user to restart the quiz by clearing session state
+    if st.button("Restart Quiz"):
+        del st.session_state.quiz
+        del st.session_state.user
+        st.rerun()
+```
+    Args:
+        csv_path (str): Path to the CSV file.
+    Returns:
+        Quiz: An instance of the Quiz class.
+    """
+    try:
+        df = pd.read_csv(csv_path)
+        questions = []
+        for q_text in df["question"].unique():
+            q_df = df[df["question"] == q_text]
+            possible_answers = list(q_df["possible_answers"])
+            correct_answer = q_df[q_df["answer_indicator"] == "c"]["possible_answers"].iloc[0]
+            aspect = q_df["aspect"].iloc[0]
+            questions.append(Question(q_text, possible_answers, correct_answer, aspect))
+        return cls(questions)
+    except Exception as e:
+        raise RuntimeError(f"Failed to load quiz CSV: {e}")
+```
+
+If an error occurs (such as a missing file or malformed data), a `RuntimeError` is raised with a descriptive message, ensuring the issue can be reported to the user and debugged effectively.
+
+This script manages the user journey: collecting user details, presenting questions, handling answers, providing feedback, and exporting results.
+
 ### Core Classes and Logic
 
 #### `Question` Class
 Defines a quiz question, possible answers, the correct answer, and its aspect/category.
 
+
 ```
 class Question:
+    """
+    Represents a quiz question with possible answers and the correct answer.
+    Attributes:
+        text (str): The question text.
+        possible_answers (list): List of possible answers.
+        correct_answer (str): The correct answer.
+        aspect (str): The aspect/category of the question.
+    """
     def __init__(self, text, possible_answers, correct_answer, aspect):
+        # Question text
         self.text = text
+        # List of possible answers
         self.possible_answers = possible_answers
+        # The correct answer
         self.correct_answer = correct_answer
+        # Category/aspect of the question
         self.aspect = aspect
 
     def is_correct(self, answer):
+        # Compare provided answer to correct answer
         return answer == self.correct_answer
 ```
 
 #### `User` Class
 Tracks user details, score, and answers.
 
+
 ```
 class User:
+    """
+    Represents a user taking the quiz, tracking their details and answers.
+    Attributes:
+        first_name (str): User's first name.
+        last_name (str): User's last name.
+        email (str): User's email address.
+        score (int): User's current score.
+        answers (list): List of answer records.
+    """
     def __init__(self, first_name, last_name, email):
+        # User's first name
         self.first_name = first_name
+        # User's last name
         self.last_name = last_name
+        # User's email address
         self.email = email
+        # User's quiz score
         self.score = 0
+        # List of user's answers
         self.answers = []
 
     def record_answer(self, question, answer, correct):
+        # Store answer record (question object, answer, correctness)
         self.answers.append({"question": question, "answer": answer, "correct": correct})
+        # Increment score if answer was correct
         if correct:
             self.score += 1
 ```
@@ -273,26 +394,35 @@ class User:
 #### `Quiz` Class
 Manages the list of questions, current state, and answer logic.
 
+
 ```
 class Quiz:
+    """
+    Manages the quiz, including questions, current state, and answer logic.
+    """
     def __init__(self, questions):
+        # List of Question objects
         self.questions = questions
+        # Index of current question
         self.current_index = 0
 
     @classmethod
     def from_csv(cls, csv_path):
-        # Loads questions from a CSV file
+        # Loads questions from a CSV file (see code for details)
         ...
 
     def current_question(self):
+        # Return current question if quiz not finished
         if self.current_index < len(self.questions):
             return self.questions[self.current_index]
         else:
             return None
 
     def answer_current(self, answer):
+        # Check if answer is correct
         question = self.current_question()
         correct = question.is_correct(answer)
+        # Move to next question
         self.current_index += 1
         return correct, question
 ```
@@ -345,15 +475,19 @@ class Question:
 - `session_utils.py`: Manages Streamlit session state variables.
 
 #### Example: User Form Validation
+
 ```
 def validate_name(name):
+    # Name must be at least 2 characters
     if len(name) <= 1:
         return False
+    # Name must be alphanumeric (no special chars)
     if not name.isalnum():
         return False
     return True
 
 def validate_email(email):
+    # Regex for basic email validation
     regex = r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}"
     if re.fullmatch(regex, email):
         return True
@@ -478,12 +612,37 @@ If any test fails, details are shown in the CI logs and locally in the terminal,
    - Test results will be displayed in the terminal.
 
 #### Code Structure Overview
+
 - `app/pages/`: Streamlit page scripts (Info, Test your knowledge, Contact Us)
 - `app/utils/`: Core logic modules (quiz logic, forms, feedback, export, session state)
 - `data/`: Quiz questions CSV file
 - `tests/`: Unit tests for logic and utilities
 - `user_scores.csv`: Stores quiz results
-- `requirements.txt`: Python dependencies
+- `requirements.txt`: Lists the Python dependencies required to run the application (see below for details).
+
+#### About requirements.txt
+
+The `requirements.txt` file specifies the Python packages needed to run this project, including for both application use and testing. It ensures that all users and environments have the correct dependencies installed. The contents of `requirements.txt` are:
+
+```
+pandas
+streamlit
+pytest
+```
+
+- `pandas` is used for handling CSV files and data manipulation.
+- `streamlit` is the framework for building the web application interface.
+- `pytest` is included for running the automated tests in the `tests/` directory.
+
+**How to use requirements.txt:**
+
+To install all required dependencies, run the following command in your terminal from the project root directory:
+
+```sh
+pip install -r requirements.txt
+```
+
+This will ensure that `pandas`, `streamlit`, and `pytest` are installed in your Python environment before running the application or tests.
 
 #### Key Code Components
 - **Quiz Logic:** Handles question loading, answer checking, and quiz progression (`quiz_logic.py`).
@@ -515,6 +674,8 @@ For further technical details, see the comments and docstrings within each modul
 
 - Managing session states was challenging, especially when adding code for conditional actions in the quiz, such as moving to the next question, showing results, and restarting the quiz.
 - Designing tests for classes and functions was difficult, particularly when functions/classes are dependent on each other. For example, in the repo:
+
+- I encountered an issue where tests run locally were passing, but the same tests kept failing on GitHub Actions CI. After investigating, I discovered the problem was due to missing dependencies in the `requirements.txt` file (specifically, `streamlit` was not included). Once I added all necessary dependencies to `requirements.txt`, the CI tests passed successfully. This highlighted the importance of keeping requirements up to date for both local and CI environments.
 
 ```python
 def test_user_record_answer():
