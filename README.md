@@ -40,7 +40,7 @@ The application has been developed using Streamlit in Python. The repository inc
 
 ### GUI Design
 - The application uses Streamlit to provide a web-based graphical user interface (GUI).
-- The application prototype was made on Figma. Use this link to see the [Figma prototype](https://www.figma.com/design/Emu6EbjRNC1RxjaPPBbMlO/ifc-sum2?node-id=4330-1381&t=ZigtyyaSCmRnOK08-1).
+- The application prototype was made on Figma. Use this link to see the [Figma prototype](https://www.figma.com/proto/Emu6EbjRNC1RxjaPPBbMlO/ifc-sum2?node-id=4330-767&t=3quOay8m0vJSSiMu-1&scaling=min-zoom&content-scaling=fixed&page-id=4312%3A4898&starting-point-node-id=4330%3A767).
 - If the link above does not work, please see the screenshots below for the prototype.
 
 ![](images/about_page.png)
