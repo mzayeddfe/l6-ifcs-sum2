@@ -639,27 +639,6 @@ For further technical details, see the comments and docstrings within each modul
 
 - I encountered an issue where tests run locally were passing, but the same tests kept failing on GitHub Actions CI. After investigating, I discovered the problem was due to missing dependencies in the `requirements.txt` file (specifically, `streamlit` was not included). Once I added all necessary dependencies to `requirements.txt`, the CI tests passed successfully. This highlighted the importance of keeping requirements up to date for both local and CI environments.
 
-```python
-def test_user_record_answer():
-    """
-    Test that User.record_answer correctly records answers and updates the score.
-    """
-    user_info = User(
-        first_name = "John",
-        last_name = "Doe",
-        email = "john.doe@gmail.com"
-    )
-    q = Question(
-        text="What is 1+1?",
-        possible_answers=["1", "2", "3", "4"],
-        correct_answer="2",
-        aspect="maths"
-    )
-    user_info.record_answer(q,"2",True)
-    assert user_info.score == 1
-    assert user_info.answers[-1]["answer"]=="2"
-    assert user_info.answers[-1]["correct"] is True
-```
 - Usually, I start with functions as I can see clearly what will be reused in a process. However, here I had to start with code and then refactor it as I got more familiar with Streamlit and classes. It was a learning curve.
 
 - I learned that including a feature for users to record their division or team requires clear requirements and departmental agreement. Ongoing discussions about how to segment quiz collections meant this functionality was postponed. This highlighted the importance of aligning technical features with organizational needs before implementation.
