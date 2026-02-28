@@ -292,7 +292,7 @@ This script manages the user journey: collecting user details, presenting questi
 Defines a quiz question, possible answers, the correct answer, and its aspect/category.
 
 
-```
+```python
 class Question:
     """
     Represents a quiz question with possible answers and the correct answer.
@@ -321,7 +321,7 @@ class Question:
 Tracks user details, score, and answers.
 
 
-```
+```python
 class User:
     """
     Represents a user taking the quiz, tracking their details and answers.
@@ -341,7 +341,7 @@ class User:
         self.email = email
         # User's quiz score
         self.score = 0
-        # List of user's answers
+        # List of user's ansswers
         self.answers = []
 
     def record_answer(self, question, answer, correct):
@@ -356,7 +356,7 @@ class User:
 Manages the list of questions, current state, and answer logic.
 
 
-```
+```python
 class Quiz:
     """
     Manages the quiz, including questions, current state, and answer logic.
