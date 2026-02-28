@@ -205,42 +205,18 @@ The application is structured as a Streamlit app with multiple pages:
 - `Contact Us.py`: Contact details and feedback form
 The main quiz logic is in `app/pages/Test your knowledge.py`:
 
-```
-import streamlit as st
-from utils.export_utils import *
-from utils.session_utils import *
-from utils.feedback_utils import *
-from utils.form_utils import *
-from utils.quiz_logic import Quiz, User
-
-init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
-
-st.title("Test your knowledge")
-
-# Display feedback if present
-if st.session_state.feedback is not None:
-    msg_type, msg_content = st.session_state.feedback
-    if msg_type == "success":
-        st.success(msg_content)
-    else:
-        st.error(msg_content)
-    st.session_state.feedback = None
-
-        msg_type, msg_content = give_feedback(st.session_state.quiz, st.session_state.user, answer)
-```
+```python
 import streamlit as st
 import csv
+import pandas as pd
 from utils.export_utils import *
 from utils.session_utils import *
 from utils.feedback_utils import *
 from utils.form_utils import *
-import pandas as pd
 from utils.quiz_logic import Quiz, User
 
 # Initialize session state variables and load quiz questions from CSV
-init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
-
-    Create a Quiz instance from a CSV file of questions.
+init_session(quiz=Quiz.from_csv("data/quiz_questions.csv"))
 
 # Show branding image in sidebar
 st.sidebar.image("images/duck_guidance.png")
@@ -294,34 +270,16 @@ else:
     # Prepare CSV data for download
     csv_data = export_results(st.session_state.user)
     st.download_button(
-        label = "Export my answers",
-        data = csv_data,
-        file_name = "COP_quiz_answers.csv",
-        mime = "text/csv"
+        label="Export my answers",
+        data=csv_data,
+        file_name="COP_quiz_answers.csv",
+        mime="text/csv"
     )
     # Allow user to restart the quiz by clearing session state
     if st.button("Restart Quiz"):
         del st.session_state.quiz
         del st.session_state.user
         st.rerun()
-```
-    Args:
-        csv_path (str): Path to the CSV file.
-    Returns:
-        Quiz: An instance of the Quiz class.
-    """
-    try:
-        df = pd.read_csv(csv_path)
-        questions = []
-        for q_text in df["question"].unique():
-            q_df = df[df["question"] == q_text]
-            possible_answers = list(q_df["possible_answers"])
-            correct_answer = q_df[q_df["answer_indicator"] == "c"]["possible_answers"].iloc[0]
-            aspect = q_df["aspect"].iloc[0]
-            questions.append(Question(q_text, possible_answers, correct_answer, aspect))
-        return cls(questions)
-    except Exception as e:
-        raise RuntimeError(f"Failed to load quiz CSV: {e}")
 ```
 
 If an error occurs (such as a missing file or malformed data), a `RuntimeError` is raised with a descriptive message, ensuring the issue can be reported to the user and debugged effectively.
@@ -479,7 +437,7 @@ class Question:
 
 #### Example: User Form Validation
 
-```
+```python
 def validate_name(name):
     # Name must be at least 2 characters
     if len(name) <= 1:
