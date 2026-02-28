@@ -205,42 +205,18 @@ The application is structured as a Streamlit app with multiple pages:
 - `Contact Us.py`: Contact details and feedback form
 The main quiz logic is in `app/pages/Test your knowledge.py`:
 
-```
-import streamlit as st
-from utils.export_utils import *
-from utils.session_utils import *
-from utils.feedback_utils import *
-from utils.form_utils import *
-from utils.quiz_logic import Quiz, User
-
-init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
-
-st.title("Test your knowledge")
-
-# Display feedback if present
-if st.session_state.feedback is not None:
-    msg_type, msg_content = st.session_state.feedback
-    if msg_type == "success":
-        st.success(msg_content)
-    else:
-        st.error(msg_content)
-    st.session_state.feedback = None
-
-        msg_type, msg_content = give_feedback(st.session_state.quiz, st.session_state.user, answer)
-```
+```python
 import streamlit as st
 import csv
+import pandas as pd
 from utils.export_utils import *
 from utils.session_utils import *
 from utils.feedback_utils import *
 from utils.form_utils import *
-import pandas as pd
 from utils.quiz_logic import Quiz, User
 
 # Initialize session state variables and load quiz questions from CSV
-init_session(quiz = Quiz.from_csv("data/quiz_questions.csv"))
-
-    Create a Quiz instance from a CSV file of questions.
+init_session(quiz=Quiz.from_csv("data/quiz_questions.csv"))
 
 # Show branding image in sidebar
 st.sidebar.image("images/duck_guidance.png")
@@ -294,34 +270,16 @@ else:
     # Prepare CSV data for download
     csv_data = export_results(st.session_state.user)
     st.download_button(
-        label = "Export my answers",
-        data = csv_data,
-        file_name = "COP_quiz_answers.csv",
-        mime = "text/csv"
+        label="Export my answers",
+        data=csv_data,
+        file_name="COP_quiz_answers.csv",
+        mime="text/csv"
     )
     # Allow user to restart the quiz by clearing session state
     if st.button("Restart Quiz"):
         del st.session_state.quiz
         del st.session_state.user
         st.rerun()
-```
-    Args:
-        csv_path (str): Path to the CSV file.
-    Returns:
-        Quiz: An instance of the Quiz class.
-    """
-    try:
-        df = pd.read_csv(csv_path)
-        questions = []
-        for q_text in df["question"].unique():
-            q_df = df[df["question"] == q_text]
-            possible_answers = list(q_df["possible_answers"])
-            correct_answer = q_df[q_df["answer_indicator"] == "c"]["possible_answers"].iloc[0]
-            aspect = q_df["aspect"].iloc[0]
-            questions.append(Question(q_text, possible_answers, correct_answer, aspect))
-        return cls(questions)
-    except Exception as e:
-        raise RuntimeError(f"Failed to load quiz CSV: {e}")
 ```
 
 If an error occurs (such as a missing file or malformed data), a `RuntimeError` is raised with a descriptive message, ensuring the issue can be reported to the user and debugged effectively.
@@ -334,7 +292,7 @@ This script manages the user journey: collecting user details, presenting questi
 Defines a quiz question, possible answers, the correct answer, and its aspect/category.
 
 
-```
+```python
 class Question:
     """
     Represents a quiz question with possible answers and the correct answer.
@@ -363,7 +321,7 @@ class Question:
 Tracks user details, score, and answers.
 
 
-```
+```python
 class User:
     """
     Represents a user taking the quiz, tracking their details and answers.
@@ -383,7 +341,7 @@ class User:
         self.email = email
         # User's quiz score
         self.score = 0
-        # List of user's answers
+        # List of user's ansswers
         self.answers = []
 
     def record_answer(self, question, answer, correct):
@@ -398,7 +356,7 @@ class User:
 Manages the list of questions, current state, and answer logic.
 
 
-```
+```python
 class Quiz:
     """
     Manages the quiz, including questions, current state, and answer logic.
@@ -479,7 +437,7 @@ class Question:
 
 #### Example: User Form Validation
 
-```
+```python
 def validate_name(name):
     # Name must be at least 2 characters
     if len(name) <= 1:
@@ -681,27 +639,6 @@ For further technical details, see the comments and docstrings within each modul
 
 - I encountered an issue where tests run locally were passing, but the same tests kept failing on GitHub Actions CI. After investigating, I discovered the problem was due to missing dependencies in the `requirements.txt` file (specifically, `streamlit` was not included). Once I added all necessary dependencies to `requirements.txt`, the CI tests passed successfully. This highlighted the importance of keeping requirements up to date for both local and CI environments.
 
-```python
-def test_user_record_answer():
-    """
-    Test that User.record_answer correctly records answers and updates the score.
-    """
-    user_info = User(
-        first_name = "John",
-        last_name = "Doe",
-        email = "john.doe@gmail.com"
-    )
-    q = Question(
-        text="What is 1+1?",
-        possible_answers=["1", "2", "3", "4"],
-        correct_answer="2",
-        aspect="maths"
-    )
-    user_info.record_answer(q,"2",True)
-    assert user_info.score == 1
-    assert user_info.answers[-1]["answer"]=="2"
-    assert user_info.answers[-1]["correct"] is True
-```
 - Usually, I start with functions as I can see clearly what will be reused in a process. However, here I had to start with code and then refactor it as I got more familiar with Streamlit and classes. It was a learning curve.
 
 - I learned that including a feature for users to record their division or team requires clear requirements and departmental agreement. Ongoing discussions about how to segment quiz collections meant this functionality was postponed. This highlighted the importance of aligning technical features with organizational needs before implementation.
